@@ -34,5 +34,18 @@ public interface DatabaseControllerInterface {
 	 * @return
 	 */
 	public ArrayList<Record> getRecords(Date startDate, Date endDate, Job job);
+	
+	/**
+	 * Functia trebuie sa stearga toate intrarile care au data inregistrarii
+	 * mai mare decat "startDate" si mai mica decat "endDate". Daca parametrul
+	 * job este null stergerea trebuie facuta pentru toate joburile, altfel jobul
+	 * intrarilor trebuie sa fie acelasi cu parametrul "job".
+	 * 
+	 * @param startDate
+	 * @param endDate
+	 * @param job
+	 * @return
+	 */
+	public void deleteRecords(Date startDate, Date endDate, Job job);
 
 }

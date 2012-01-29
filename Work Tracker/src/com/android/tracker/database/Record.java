@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Record {
 
-	public static final int PINCH_IN = 0;
-	public static final int PINCH_OUT = 1;
+	public static final int PUNCH_IN = 0;
+	public static final int PUNCH_OUT = 1;
 
 	private int type;
 	private Date date;
