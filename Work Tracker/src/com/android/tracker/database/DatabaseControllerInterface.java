@@ -13,6 +13,13 @@ public interface DatabaseControllerInterface {
 	 * @param record
 	 */
 	public void addRecord(Record record);
+	
+	/**
+	 * Intrarea "record" trebuie updatata.
+	 * 
+	 * @param record
+	 */
+	public void updateRecord(Record record);
 
 	/**
 	 * Functia asta nu trebuie implementata, decat daca ne hotaram sa facem un
@@ -47,5 +54,34 @@ public interface DatabaseControllerInterface {
 	 * @return
 	 */
 	public void deleteRecords(Date startDate, Date endDate, Job job);
+	
+	
+	/**
+	 * Functia trebuie sa adauge un nou job in tabelul joburilor
+	 * 
+	 * @param job
+	 */
+	public void addJob(Job job);
+	
+	/**
+	 * Functia trebuie sa jobul primti ca parametru
+	 * 
+	 * @param job
+	 */
+	public void updateJob(Job job);
+
+	
+	/**
+	 * Functia va returna toate joburile din tabelul joburilor.
+	 * @return
+	 */
+	public ArrayList<Job> getJobs();
+	
+	
+	/**
+	 * Functia va sterge jobul primit ca parametru
+	 * @param job
+	 */
+	public void deleteJob(Job job);
 
 }

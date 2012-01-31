@@ -7,7 +7,7 @@ public class Record {
 	public static final int PUNCH_IN = 0;
 	public static final int PUNCH_OUT = 1;
 
-	private int type;
+	private int id, type;
 	private Date date;
 	private Job job;
 
@@ -33,5 +33,15 @@ public class Record {
 
 	public void setJob(Job job) {
 		this.job = job;
+	}
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }
