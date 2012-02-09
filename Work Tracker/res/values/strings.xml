@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World, WorkTrackerActivity!</string>
     <string name="app_name">Work Tracker</string>
+    <string name="punch_in">Punch In</string>
 
 </resources>

@@ -10,10 +10,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
+            android:name=".ui.WorkTrackerActivity"
             android:label="@string/app_name"
-            android:name=".ui.WorkTrackerActivity" 
-            android:theme="@android:style/Theme.Black.NoTitleBar">
-            <intent-filter >
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,9 +21,19 @@
         </activity>
         <activity
             android:name=".ui.records.RecordsActivity"
-            android:screenOrientation="portrait" 
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
+
+        <receiver android:name=".widget.TrackerWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
     </application>
 
 </manifest>
