@@ -32,7 +32,7 @@ public class TrackerWidgetProvider extends AppWidgetProvider {
 	{
 		// TODO Auto-generated method stub
 		super.onEnabled(context);
-	}
+	} 
 
 	@Override
 	public void onReceive(Context context, Intent intent)
