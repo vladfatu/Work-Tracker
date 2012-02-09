@@ -10,6 +10,11 @@ public class Record {
 	private int id, type;
 	private Date date;
 	private Job job;
+	
+	public Record(Date date)
+	{
+		this.date = date;
+	}
 
 	public Date getDate() {
 		return date;
