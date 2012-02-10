@@ -6,6 +6,9 @@
 
     <uses-sdk android:minSdkVersion="4" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
@@ -24,6 +27,18 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
+        
+        <!-- The application's publisher ID assigned by AdMob --> <meta-data android:value=
+		"a14f346cec3005e" 
+		 android:name=
+		"ADMOB_PUBLISHER_ID" 
+		 />
+
+        <!-- AdMobActivity definition -->
+        <activity
+            android:name="com.google.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
         <receiver android:name=".widget.TrackerWidgetProvider" >
             <intent-filter>
