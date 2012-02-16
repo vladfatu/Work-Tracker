@@ -56,7 +56,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 	public void addRecord(Record record)
 	{
 		open();
-
+ 
 		// TODO Auto-generated method stub
 
 		close();
