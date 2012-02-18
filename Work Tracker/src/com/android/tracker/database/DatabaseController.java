@@ -44,7 +44,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 	private DatabaseController open() throws SQLException
 	{
 		db = DBHelper.getWritableDatabase();
-		return this;
+		return this; 
 	}
 
 	// ---closes the database---
