@@ -13,6 +13,10 @@ import android.widget.TextView;
 import com.android.tracker.R;
 import com.android.tracker.database.Record;
 
+/**
+ * @author vlad
+ *
+ */
 public class RecordsAdapter extends ArrayAdapter<Record> {
 
     private ArrayList<Record> items;

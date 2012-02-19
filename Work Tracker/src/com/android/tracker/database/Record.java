@@ -2,6 +2,10 @@ package com.android.tracker.database;
 
 import java.util.Date;
 
+/**
+ * @author vlad
+ *
+ */
 public class Record {
 
 	public static final int PUNCH_IN = 0;

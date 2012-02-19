@@ -3,6 +3,10 @@ package com.android.tracker.database;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * @author vlad
+ *
+ */
 public interface DatabaseControllerInterface {
 
 	/**
@@ -64,7 +68,7 @@ public interface DatabaseControllerInterface {
 	public void addJob(Job job);
 	
 	/**
-	 * Functia trebuie sa jobul primti ca parametru
+	 * Functia trebuie sa faca update la jobul primit ca parametru
 	 * 
 	 * @param job
 	 */

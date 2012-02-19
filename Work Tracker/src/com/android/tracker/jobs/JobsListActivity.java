@@ -1,28 +1,26 @@
-package com.android.tracker.ui.records;
+package com.android.tracker.jobs;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.android.tracker.R;
-import com.android.tracker.database.Record;
+import com.android.tracker.database.Job;
 
 /**
  * @author vlad
  *
  */
-public class RecordsActivity extends Activity implements OnItemClickListener{
+public class JobsListActivity extends Activity{
 	
 	private ListView list;
-	private RecordsAdapter adapter;
-	private ArrayList<Record> records;
+	private JobsListAdapter adapter;
+	private ArrayList<Job> jobs;
 	private ProgressDialog m_ProgressDialog = null; 
 	private Runnable viewOrders;
 	
@@ -32,15 +30,15 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 		setContentView(R.layout.records_layout);
 		
 		list = (ListView) findViewById(R.id.list);
-		records = new ArrayList<Record>();
+		jobs = new ArrayList<Job>();
 		
-		adapter = new RecordsAdapter(this, R.layout.record_row, records);
+		adapter = new JobsListAdapter(this, R.layout.record_row, jobs);
 		list.setAdapter(adapter);
 		
 		viewOrders = new Runnable(){
             
             public void run() {
-                getRecords();
+                getJobs();
             }
         };
         Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
@@ -53,21 +51,20 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 
         public void run() {
         	
-            if(records != null && records.size() > 0){
+            if(jobs != null && jobs.size() > 0){
                 adapter.notifyDataSetChanged();
               
             }
             m_ProgressDialog.dismiss();
         }
     };
-
-	private void getRecords()
+    
+    private void getJobs()
 	{
 		// In loc de exemplu asta va trebui adaugat cod pentru extragerea din baza de date
-		Calendar c = Calendar.getInstance();
         
-		records.add(new Record(c.getTime()));
-		records.add(new Record(c.getTime()));
+		jobs.add(new Job());
+		jobs.add(new Job());
 		//
 		//TODO
 		
@@ -83,7 +80,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	{
-		// aici ar trebui sa apara un dialog in care sa editam record-ul(probabil data e singura care poate fi schimbata)
+		// aici ar trebui sa se deschida activitatea "JobSettingsActivity" pentru jobul de la pozitia "position" 
 		// TODO Auto-generated method stub
 		
 	}

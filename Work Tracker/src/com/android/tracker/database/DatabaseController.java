@@ -7,6 +7,10 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * @author vlad
+ *
+ */
 public class DatabaseController implements DatabaseControllerInterface {
 
 	private static final String DATABASE_NAME = "worktracker";

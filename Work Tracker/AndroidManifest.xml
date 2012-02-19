@@ -27,12 +27,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
-        
-        <!-- The application's publisher ID assigned by AdMob --> <meta-data android:value=
-		"a14f346cec3005e" 
-		 android:name=
-		"ADMOB_PUBLISHER_ID" 
-		 />
+
+        <!-- The application's publisher ID assigned by AdMob -->
+        <meta-data
+            android:name="ADMOB_PUBLISHER_ID"
+            android:value="a14f346cec3005e" />
 
         <!-- AdMobActivity definition -->
         <activity
@@ -49,6 +48,27 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info" />
         </receiver>
+
+        <activity
+            android:name=".jobs.JobsListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".jobs.JobSettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".reports.ReportsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

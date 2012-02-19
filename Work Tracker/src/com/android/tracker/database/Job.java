@@ -1,5 +1,9 @@
 package com.android.tracker.database;
 
+/**
+ * @author vlad
+ *
+ */
 public class Job {
 
 	private int id;
