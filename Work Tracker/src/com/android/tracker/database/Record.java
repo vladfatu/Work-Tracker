@@ -11,9 +11,12 @@ public class Record {
 	public static final int PUNCH_IN = 0;
 	public static final int PUNCH_OUT = 1;
 
-	private int id, type;
+	private long id;
+	private int type;
 	private Date date;
 	private Job job;
+	
+	public Record(){};
 	
 	public Record(Date date)
 	{
@@ -44,12 +47,12 @@ public class Record {
 		this.job = job;
 	}
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(long id)
 	{
 		this.id = id;
 	}

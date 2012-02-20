@@ -12,6 +12,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.android.tracker.R;
+import com.android.tracker.database.DatabaseController;
 import com.android.tracker.database.Record;
 
 /**
@@ -25,6 +26,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 	private ArrayList<Record> records;
 	private ProgressDialog m_ProgressDialog = null; 
 	private Runnable viewOrders;
+	private DatabaseController dbController;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,6 +38,12 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 		
 		adapter = new RecordsAdapter(this, R.layout.record_row, records);
 		list.setAdapter(adapter);
+		
+		dbController = new DatabaseController(this);
+		
+		// asta e doar de test, adaugarea record-rurilor va trebui facuta din ecranul principal, nu de aici
+		Calendar c = Calendar.getInstance();
+		dbController.addRecord(new Record(c.getTime()));
 		
 		viewOrders = new Runnable(){
             
@@ -63,13 +71,8 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 
 	private void getRecords()
 	{
-		// In loc de exemplu asta va trebui adaugat cod pentru extragerea din baza de date
-		Calendar c = Calendar.getInstance();
-        
-		records.add(new Record(c.getTime()));
-		records.add(new Record(c.getTime()));
-		//
-		//TODO
+		// Aici vor trebui verificate filtrele din activitate pentru a stii ce sa cerem e la baza de date
+		records.addAll(dbController.getAllRecords());
 		
 		try
 		{

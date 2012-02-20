@@ -32,6 +32,13 @@ public interface DatabaseControllerInterface {
 	 * @param records
 	 */
 	public void addRecords(ArrayList<Record> records);
+	
+	/**
+	 * Functia trebuie sa returneze toate intrarile 
+	 * 
+	 * @return
+	 */
+	public ArrayList<Record> getAllRecords();
 
 	/**
 	 * Functia trebuie sa returneze toate intrarile care au data inregistrarii
@@ -58,6 +65,27 @@ public interface DatabaseControllerInterface {
 	 * @return
 	 */
 	public void deleteRecords(Date startDate, Date endDate, Job job);
+	
+	/**
+	 * Functia trebuie sa streaga din baza de date toate intrarile din lista "records"
+	 * 
+	 * @param records
+	 */
+	public void deleteRecords(ArrayList<Record> records);
+	
+	/**
+	 * Functia trebuie sa stearga din baza de date intrarea "record"
+	 * 
+	 * @param record
+	 */
+	public void deleteRecord(Record record);
+	
+	/**
+	 * 
+	 * Functia trebuie sa stearga din baza de date toate intrarile
+	 * 
+	 */
+	public void deleteAllRecords();
 	
 	
 	/**
@@ -87,5 +115,78 @@ public interface DatabaseControllerInterface {
 	 * @param job
 	 */
 	public void deleteJob(Job job);
+	
+	/**
+	 * Functia trebuie sa stearga din baza de date toate joburile din lista "jobs"
+	 * 
+	 * @param jobs
+	 */
+	public void deleteJobs(ArrayList<Job> jobs);
+	
+	/**
+	 * Functia trebuie sa stearga din baza de date toate joburile.
+	 */
+	public void deleteAllJobs();
+	
+	/**
+	 * Functia trebuie sa adauge in tabelul VACATION_DAYS_TABLE ziua "day"
+	 * 
+	 * @param day
+	 */
+	public void addVacationDay(VacationDay day);
+	
+	/**
+	 * functia trebuie sa faca update la ziua primita ca parametru 
+	 * 
+	 * @param day
+	 */
+	public void updateVacationDay(VacationDay day);
+	
+	/**
+	 * Functia trebuie sa returneze toate zilele de vacanta care au ca JOB_ID parametrul "job"
+	 * 
+	 * @param job
+	 * @return
+	 */
+	public ArrayList<VacationDay> getVacationDaysForJob(Job job);
+	
+	/**
+	 * Functia trebuie sa returneze toate zilele de vacanta care sunt intre datele "startDate" si "endDate"
+	 * 
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public ArrayList<VacationDay> getVacationDaysForDates(Date startDate, Date endDate);
+	
+	/**
+	 * Functia trebuie sa returneze toate zilele de vacanta care sunt intre datele "startDate" si "endDate" si 
+	 * au ca JOB_ID parametrul "job"
+	 * 
+	 * @param job
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public ArrayList<VacationDay> getVacationDaysForJobAndDates(Job job, Date startDate, Date endDate);
+	
+	/**
+	 * Functia trebuie sa stearga ziua de vacanta "day"
+	 * 
+	 * @param day
+	 */
+	public void deleteVacationDay(VacationDay day);
+	
+	/**
+	 * Functia trebuie sa stearga toate zilele de concediu din lista "days"
+	 * 
+	 * @param days
+	 */
+	public void deleteVacationDays(ArrayList<VacationDay> days);
+	
+	/**
+	 * Functia trebuie sa stearga toate zilele de concediu.
+	 */
+	public void deleteAllVacationDays();
 
 }
