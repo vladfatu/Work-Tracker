@@ -8,6 +8,7 @@ public class Job {
 
 	private long id;
 	private String name;
+	private int pricePerHour;
 
 	public long getId() {
 		return id;
@@ -23,6 +24,16 @@ public class Job {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getPricePerHour()
+	{
+		return pricePerHour;
+	}
+
+	public void setPricePerHour(int pricePerHour)
+	{
+		this.pricePerHour = pricePerHour;
 	}
 
 }

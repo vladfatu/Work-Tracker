@@ -173,7 +173,12 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public void addJob(Job job)
 	{
-		// TODO Auto-generated method stub
+		open();
+		ContentValues tempValues = new ContentValues();
+		tempValues.put(JOB_NAME, job.getName());
+		tempValues.put(JOB_PRICE_PER_HOUR, job.getPricePerHour());
+		job.setId(db.insert(JOBS_TABLE, null, tempValues));
+		close();
 		
 	}
 
@@ -185,8 +190,32 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public ArrayList<Job> getJobs()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		open();
+		Cursor cursor = db.query(JOBS_TABLE, new String[] {
+        		KEY_ROWID, 
+        		JOB_NAME,
+        		JOB_PRICE_PER_HOUR}, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null);
+		
+		ArrayList<Job> jobs = new ArrayList<Job>();
+		
+		if (cursor.moveToFirst())
+	    {
+	        do {       
+	        	Job job = new Job();
+				job.setId(cursor.getLong(0));
+				job.setName(cursor.getString(1));
+		        job.setPricePerHour(cursor.getInt(2));		
+		        jobs.add(job);
+	        } while (cursor.moveToNext());
+	    }
+		
+		close();
+		return jobs;
 	}
 	
 	private Job getJobForId(long id)
