@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.android.tracker.R;
-import com.android.tracker.ui.records.RecordsActivity;
+import com.android.tracker.jobs.JobsListActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
@@ -47,7 +47,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
 	{
 		if (v == recordsButton)
 		{
-			startActivity(new Intent(this, RecordsActivity.class));
+			startActivity(new Intent(this, JobsListActivity.class));
 		}
 		
 	}

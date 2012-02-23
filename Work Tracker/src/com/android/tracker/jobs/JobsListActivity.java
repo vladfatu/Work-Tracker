@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.tracker.R;
+import com.android.tracker.database.DatabaseController;
 import com.android.tracker.database.Job;
 
 /**
@@ -23,6 +24,7 @@ public class JobsListActivity extends Activity{
 	private ArrayList<Job> jobs;
 	private ProgressDialog m_ProgressDialog = null; 
 	private Runnable viewOrders;
+	private DatabaseController dbController;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,7 +34,12 @@ public class JobsListActivity extends Activity{
 		list = (ListView) findViewById(R.id.list);
 		jobs = new ArrayList<Job>();
 		
-		adapter = new JobsListAdapter(this, R.layout.record_row, jobs);
+		dbController = new DatabaseController(this);
+		Job job = new Job();
+		job.setName("Job1");
+		dbController.addJob(job);
+		
+		adapter = new JobsListAdapter(this, R.layout.jobs_row, jobs);
 		list.setAdapter(adapter);
 		
 		viewOrders = new Runnable(){
@@ -61,12 +68,7 @@ public class JobsListActivity extends Activity{
     
     private void getJobs()
 	{
-		// In loc de exemplu asta va trebui adaugat cod pentru extragerea din baza de date
-        
-		jobs.add(new Job());
-		jobs.add(new Job());
-		//
-		//TODO
+		jobs.addAll(dbController.getJobs());
 		
 		try
 		{

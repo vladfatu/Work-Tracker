@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
+import com.android.tracker.R;
 import com.android.tracker.database.Job;
 
 /**
@@ -34,7 +36,11 @@ public class JobsListAdapter extends ArrayAdapter<Job>{
             }
             Job jobItem = items.get(position);
             if (jobItem != null) {
-                    // Here is where you should handle a Job Item, adding the data from "jobItem" to the view
+                    TextView nameView = (TextView) v.findViewById(R.id.nameView);
+                    if (nameView != null)
+                    {
+                    	nameView.setText(jobItem.getName());
+                    }
             }
             return v;
     	}
