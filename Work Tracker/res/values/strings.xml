@@ -4,5 +4,15 @@
     <string name="hello">Hello World, WorkTrackerActivity!</string>
     <string name="app_name">Work Tracker</string>
     <string name="punch_in">Punch In</string>
+    <string name="today">Today:</string>
+    <string name="work_started_at">Work started at:</string>
+    <string name="hours_worked">Hours worked:</string>
+    <string name="income">Income:</string>
+    <string name="add">Add</string>
+    <string name="total_hours">Total Hours:</string>
+    <string name="this_week">This week:</string>
+    <string name="this_month">This month:</string>
+    <string name="settings">*</string>
+    <string name="description">Description:</string>
 
 </resources>
