@@ -243,7 +243,12 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public void addVacationDay(VacationDay day)
 	{
-		// TODO Auto-generated method stub
+		open();
+		ContentValues tempValues = new ContentValues();
+		tempValues.put(JOBS_ID, 0);
+		tempValues.put(VACATION_DAY__DATE, dateFormat.format(day.getDate()));
+		day.setId(db.insert(VACATION_DAYS_TABLE, null, tempValues));
+		close();
 		
 	}
 	
