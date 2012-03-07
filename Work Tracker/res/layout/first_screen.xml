@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" android:layout_margin="10dip">
+    android:layout_margin="10dip"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -48,7 +50,7 @@
         android:id="@+id/linearLayout14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" android:visibility="invisible">
+        android:orientation="vertical" android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/LinearLayout01"
@@ -146,12 +148,14 @@
         </LinearLayout>
 
     </LinearLayout>
-
+
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/punchInButton"
         android:layout_width="100dip"
         android:layout_height="60dip"
-        android:text="@string/punch_in" android:layout_gravity="center" android:textSize="16dip"/>
+        android:layout_gravity="center"
+        android:text="@string/punch_in"
+        android:textSize="16dip" />
 
     <Button
         android:id="@+id/button3"

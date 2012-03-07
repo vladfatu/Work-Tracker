@@ -75,26 +75,45 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public void addRecord(Record record)
 	{
-		open();
+		Boolean opened = true;
+		if(!db.isOpen()) 
+		{
+			open(); 
+			opened = false;
+		}
+		
  
 		ContentValues tempValues = new ContentValues();
 		tempValues.put(JOBS_ID, 0);
 		tempValues.put(RECORD_DATE, dateFormat.format(record.getDate()));
 		tempValues.put(RECORD_TYPE, record.getType());
 		record.setId(db.insert(RECORDS_TABLE, null, tempValues));
-		close();
+		
+		if(!opened) close();
 
 	}
 
 	public void updateRecord(Record record)
 	{
-		// TODO Auto-generated method stub
+		open();
+		 
+		ContentValues tempValues = new ContentValues();
+		tempValues.put(JOBS_ID, 0);
+		tempValues.put(RECORD_DATE, dateFormat.format(record.getDate()));
+		tempValues.put(RECORD_TYPE, record.getType());
+		db.update(RECORDS_TABLE, tempValues, KEY_ROWID+"=?", new String[] {
+				Long.toString(record.getId())});
 		
+		close();
 	}
 
 	public void addRecords(ArrayList<Record> records)
 	{
-		// TODO Auto-generated method stub
+		open();
+		
+		for(int i=0; i<records.size(); i++)
+			addRecord(records.get(i));
+		close();
 		
 	}
 	
@@ -143,31 +162,97 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public ArrayList<Record> getRecords(Date startDate, Date endDate, Job job)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		open();
+		Cursor cursor = db.query(RECORDS_TABLE, new String[] {
+        		KEY_ROWID, 
+        		JOBS_ID,
+        		RECORD_DATE,
+        		RECORD_TYPE}, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null);
+		
+		ArrayList<Record> records = new ArrayList<Record>();
+		
+		if (cursor.moveToFirst())
+	    {
+	        do {   
+	        	Date recordDate;
+				try
+				{
+					recordDate = dateFormat.parse(cursor.getString(2));
+					if (recordDate.after(startDate) && recordDate.before(endDate))
+					{
+						if (job == null || (job != null && cursor.getInt(1) == job.getId()))
+						{
+							Record record = new Record();
+							try
+							{
+								record.setId(cursor.getLong(0));
+								// tabelul contine doar id-urile job-urilor;
+								// pentru a
+								// crea un job am adaugat functia privata
+								// "getJobForId"
+								record.setJob(getJobForId(cursor.getLong(1)));
+								record.setDate(dateFormat.parse(cursor.getString(2)));
+								record.setType(cursor.getInt(3));
+								records.add(record);
+							} catch (ParseException e)
+							{
+
+								e.printStackTrace();
+							}
+						}
+					}
+				} catch (ParseException e1)
+				{
+					e1.printStackTrace();
+				}
+				
+
+	        } while (cursor.moveToNext());
+	    }
+		
+		close();
+		
+		return records;
+		
 	}
 
 	public void deleteRecords(Date startDate, Date endDate, Job job)
 	{
-		// TODO Auto-generated method stub
+		deleteRecords(getRecords(startDate, endDate, job));
 		
 	}
 
 	public void deleteRecords(ArrayList<Record> records)
 	{
-		// TODO Auto-generated method stub
+		open();
+		
+		for(int i=0; i<records.size(); i++)
+			deleteRecord(records.get(i));
+		close();
 		
 	}
 
 	public void deleteRecord(Record record)
 	{
-		// TODO Auto-generated method stub
+		Boolean opened = true;
+		if(!db.isOpen()) 
+		{
+			open(); 
+			opened = false;
+		}
 		
+		db.delete(RECORDS_TABLE, KEY_ROWID+"=?", new String [] {String.valueOf(record.getId())});
+		if(!opened) close();
 	}
 
 	public void deleteAllRecords()
 	{
-		// TODO Auto-generated method stub
+		deleteRecords(getAllRecords());
 		
 	}
 

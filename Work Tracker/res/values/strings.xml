@@ -14,5 +14,6 @@
     <string name="this_month">This month:</string>
     <string name="settings">*</string>
     <string name="description">Description:</string>
+    <string name="settings_menu">Settings</string>
 
 </resources>
