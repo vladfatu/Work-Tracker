@@ -148,7 +148,6 @@ public class DatabaseController implements DatabaseControllerInterface {
 					records.add(record);
 				} catch (ParseException e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -258,18 +257,31 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public void addJob(Job job)
 	{
-		open();
+		Boolean opened = true;
+		if(!db.isOpen()) 
+		{
+			open(); 
+			opened = false;
+		}
 		ContentValues tempValues = new ContentValues();
 		tempValues.put(JOB_NAME, job.getName());
 		tempValues.put(JOB_PRICE_PER_HOUR, job.getPricePerHour());
 		job.setId(db.insert(JOBS_TABLE, null, tempValues));
-		close();
+		if(!opened) close();
 		
 	}
 
 	public void updateJob(Job job)
 	{
-		// TODO Auto-generated method stub
+		open();
+		 
+		ContentValues tempValues = new ContentValues();
+		tempValues.put(JOB_NAME, job.getName());
+		tempValues.put(JOB_PRICE_PER_HOUR, job.getPricePerHour());
+		db.update(JOBS_TABLE, tempValues, KEY_ROWID+"=?", new String[] {
+				Long.toString(job.getId())});
+		
+		close();
 		
 	}
 
@@ -305,24 +317,56 @@ public class DatabaseController implements DatabaseControllerInterface {
 	
 	private Job getJobForId(long id)
 	{
-		return null;
+		Job job = new Job();
+		open();
+		Cursor cursor = db.query(JOBS_TABLE, new String[] {
+		        KEY_ROWID, 
+		        JOB_NAME,
+		        JOB_PRICE_PER_HOUR}, 
+		        KEY_ROWID+"=?", 
+		        new String[] {
+		Long.toString(id)},
+		                null, 
+		                null, 
+		                null);
+
+		if (cursor.moveToFirst())
+		    {      
+		        job.setId(cursor.getLong(0));
+		        job.setName(cursor.getString(1));
+		        job.setPricePerHour(cursor.getInt(2));
+		    }
+
+		close();
+		return job;
 	}
 
 	public void deleteJob(Job job)
 	{
-		// TODO Auto-generated method stub
+		Boolean opened = true;
+		if(!db.isOpen()) 
+		{
+			open(); 
+			opened = false;
+		}
 		
+		db.delete(JOBS_TABLE, KEY_ROWID+"=?", new String [] {String.valueOf(job.getId())});
+		if(!opened) close();
 	}
 
 	public void deleteJobs(ArrayList<Job> jobs)
-	{
-		// TODO Auto-generated method stub
-		
+ {
+		open();
+
+		for (int i = 0; i < jobs.size(); i++)
+			deleteJob(jobs.get(i));
+		close();
+
 	}
 
 	public void deleteAllJobs()
 	{
-		// TODO Auto-generated method stub
+		deleteJobs(getJobs());
 		
 	}
 
