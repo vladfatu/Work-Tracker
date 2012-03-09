@@ -258,7 +258,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 	public void addJob(Job job)
 	{
 		Boolean opened = true;
-		if(!db.isOpen()) 
+		if(db == null || !db.isOpen()) 
 		{
 			open(); 
 			opened = false;

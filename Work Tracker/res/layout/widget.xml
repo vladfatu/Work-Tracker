@@ -3,20 +3,36 @@
     android:id="@+id/widgetLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" android:padding="10dip">
-
-    <Chronometer
-        android:id="@+id/widgetChronometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center" />
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dip" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/jobSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:text="@string/punch_in" />
+        android:gravity="center_horizontal"
+        android:text="Button" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Chronometer
+            android:id="@+id/widgetChronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:format="H:MM"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/punchInButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:text="@string/punch_in" />
+
+    </LinearLayout>
 
 </LinearLayout>
