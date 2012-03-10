@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/settings" android:title="@string/settings_menu" android:icon="@drawable/ic_launcher"></item>
+<item android:id="@+id/manageEntries" android:title="@string/manage_entries_menu" android:icon="@drawable/ic_launcher"></item>
+<item android:id="@+id/manageJobs" android:title="@string/manage_jobs_menu" android:icon="@drawable/ic_launcher"></item>
+<item android:id="@+id/reports" android:title="@string/reports_menu" android:icon="@drawable/ic_launcher"></item>
+<item android:id="@+id/backupRestore" android:title="@string/backup_restore_menu" android:icon="@drawable/ic_launcher"></item>
+<item android:id="@+id/help" android:title="@string/help_menu" android:icon="@drawable/ic_launcher"></item><item android:id="@+id/settings" android:icon="@drawable/ic_launcher" android:title="@string/settings_menu"></item>
     
 
 </menu>

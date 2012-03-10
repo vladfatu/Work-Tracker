@@ -15,5 +15,10 @@
     <string name="settings">*</string>
     <string name="description">Description:</string>
     <string name="settings_menu">Settings</string>
+    <string name="manage_entries_menu">Manage Entries</string>
+    <string name="manage_jobs_menu">Manage Jobs</string>
+    <string name="reports_menu">Reports</string>
+    <string name="backup_restore_menu">Backup &amp; Restore</string>
+    <string name="help_menu">Help</string>
 
 </resources>

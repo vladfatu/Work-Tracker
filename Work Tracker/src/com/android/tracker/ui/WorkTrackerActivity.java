@@ -13,7 +13,9 @@ import android.widget.LinearLayout;
 
 import com.android.tracker.R;
 import com.android.tracker.jobs.JobsListActivity;
+import com.android.tracker.reports.ReportsActivity;
 import com.android.tracker.settings.SettingsActivity;
+import com.android.tracker.ui.records.RecordsActivity;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
@@ -59,6 +61,21 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
 	{
 		switch (item.getItemId())
 		{
+		case R.id.manageEntries:
+			startActivity(new Intent(this, RecordsActivity.class));
+			return true;
+		case R.id.manageJobs:
+			startActivity(new Intent(this, JobsListActivity.class));
+			return true;
+		case R.id.reports:
+			startActivity(new Intent(this, ReportsActivity.class));
+			return true;
+		case R.id.backupRestore:
+			//TODO startActivity(new Intent(this, SettingsActivity.class));
+			return true;
+		case R.id.help:
+			//TODO startActivity(new Intent(this, SettingsActivity.class));
+			return true;
 		case R.id.settings:
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
