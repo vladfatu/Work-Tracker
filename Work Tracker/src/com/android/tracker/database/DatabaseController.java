@@ -190,10 +190,6 @@ public class DatabaseController implements DatabaseControllerInterface {
 							try
 							{
 								record.setId(cursor.getLong(0));
-								// tabelul contine doar id-urile job-urilor;
-								// pentru a
-								// crea un job am adaugat functia privata
-								// "getJobForId"
 								record.setJob(getJobForId(cursor.getLong(1)));
 								record.setDate(dateFormat.parse(cursor.getString(2)));
 								record.setType(cursor.getInt(3));
@@ -222,8 +218,9 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public void deleteRecords(Date startDate, Date endDate, Job job)
 	{
+		open();
 		deleteRecords(getRecords(startDate, endDate, job));
-		
+		close();
 	}
 
 	public void deleteRecords(ArrayList<Record> records)
@@ -251,8 +248,9 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public void deleteAllRecords()
 	{
+		open();
 		deleteRecords(getAllRecords());
-		
+		close();
 	}
 
 	public void addJob(Job job)
@@ -366,8 +364,9 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public void deleteAllJobs()
 	{
+		open();
 		deleteJobs(getJobs());
-		
+		close();
 	}
 
 	public void addVacationDay(VacationDay day)
@@ -383,44 +382,196 @@ public class DatabaseController implements DatabaseControllerInterface {
 	
 	public void updateVacationDay(VacationDay day)
 	{
-		// TODO Auto-generated method stub
+		open();
+		 
+		ContentValues tempValues = new ContentValues();
+		tempValues.put(VACATION_DAY__DATE, dateFormat.format(day.getDate()));
+		tempValues.put(JOBS_ID, 0);
+		db.update(VACATION_DAYS_TABLE, tempValues, KEY_ROWID+"=?", new String[] {
+				Long.toString(day.getId())});
+		
+		close();
+		
 		
 	}
 
 	public ArrayList<VacationDay> getVacationDaysForJob(Job job)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		open();
+		Cursor cursor = db.query(VACATION_DAYS_TABLE, new String[] { KEY_ROWID,
+				JOBS_ID, VACATION_DAY__DATE }, null, null, null, null, null);
+
+		ArrayList<VacationDay> vdays = new ArrayList<VacationDay>();
+
+		if (cursor.moveToFirst()) {
+			do {
+				Date vdate = new Date();
+				try {
+					vdate = dateFormat.parse(cursor.getString(2));
+				} catch (ParseException e) {
+
+					e.printStackTrace();
+				}
+				if (cursor.getInt(1) == job.getId()) {
+					VacationDay vday = new VacationDay(vdate);
+
+					vday.setId(cursor.getLong(0));
+					vday.setJob(getJobForId(cursor.getLong(1)));
+					vday.setDate(vdate);
+					vdays.add(vday);
+				}
+			} while (cursor.moveToNext());
+		}
+
+		close();
+		return vdays;
 	}
 
 	public ArrayList<VacationDay> getVacationDaysForDates(Date startDate, Date endDate)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		open();
+		Cursor cursor = db.query(VACATION_DAYS_TABLE, new String[] {
+        		KEY_ROWID, 
+        		JOBS_ID,
+        		VACATION_DAY__DATE}, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null);
+		
+		ArrayList<VacationDay> vdays = new ArrayList<VacationDay>();
+		
+		if (cursor.moveToFirst())
+	    {
+	        do {   
+	        	Date vacDate;
+				try
+				{
+					vacDate = dateFormat.parse(cursor.getString(2));
+					if (vacDate.after(startDate) && vacDate.before(endDate))
+					{
+							VacationDay day = new VacationDay(vacDate);
+							try
+							{
+								day.setId(cursor.getLong(0));
+								day.setJob(getJobForId(cursor.getLong(1)));
+								day.setDate(dateFormat.parse(cursor.getString(2)));
+								vdays.add(day);
+							} catch (ParseException e)
+							{
+
+								e.printStackTrace();
+							}
+						
+					}
+				} catch (ParseException e1)
+				{
+					e1.printStackTrace();
+				}
+				
+
+	        } while (cursor.moveToNext());
+	    }
+		
+		close();
+		
+		return vdays;
+		
 	}
 
 	public ArrayList<VacationDay> getVacationDaysForJobAndDates(Job job, Date startDate, Date endDate)
 	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+		open();
+		Cursor cursor = db.query(VACATION_DAYS_TABLE, new String[] {
+        		KEY_ROWID, 
+        		JOBS_ID,
+        		VACATION_DAY__DATE}, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null);
+		
+		ArrayList<VacationDay> vdays = new ArrayList<VacationDay>();
+		
+		if (cursor.moveToFirst())
+	    {
+	        do {   
+	        	Date vacDate;
+				try
+				{
+					vacDate = dateFormat.parse(cursor.getString(2));
+					if (vacDate.after(startDate) && vacDate.before(endDate) && cursor.getInt(1) == job.getId())
+					{
+							VacationDay day = new VacationDay(vacDate);
+							try
+							{
+								day.setId(cursor.getLong(0));
+								day.setJob(getJobForId(cursor.getLong(1)));
+								day.setDate(dateFormat.parse(cursor.getString(2)));
+								vdays.add(day);
+							} catch (ParseException e)
+							{
 
+								e.printStackTrace();
+							}
+						
+					}
+				} catch (ParseException e1)
+				{
+					e1.printStackTrace();
+				}
+				
+
+	        } while (cursor.moveToNext());
+	    }
+		
+		close();
+		
+		return vdays;
+		
+	}
 	public void deleteVacationDay(VacationDay day)
 	{
-		// TODO Auto-generated method stub
+		open();
+		db.delete(VACATION_DAYS_TABLE, KEY_ROWID+"=?", new String [] {String.valueOf(day.getId())});
+		close();
 		
 	}
 
 	public void deleteVacationDays(ArrayList<VacationDay> days)
-	{
-		// TODO Auto-generated method stub
-		
+ {
+		open();
+		for (int i = 0; i < days.size(); i++)
+			deleteVacationDay(days.get(i));
+		close();
+
 	}
 
 	public void deleteAllVacationDays()
 	{
-		// TODO Auto-generated method stub
 		
+		open();
+		Cursor cursor = db.query(VACATION_DAYS_TABLE, new String[] {
+        		KEY_ROWID, 
+        		JOBS_ID,
+        		VACATION_DAY__DATE}, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null);
+		
+		
+		if (cursor.moveToFirst())
+	    {
+	        do {   
+	        	db.delete(VACATION_DAYS_TABLE, KEY_ROWID+"=?", new String [] {String.valueOf(cursor.getInt(0))});
+	        } while (cursor.moveToNext());
+	    }
+		
+		close();
 	}
 
 }
