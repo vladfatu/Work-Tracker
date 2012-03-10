@@ -29,20 +29,49 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" android:layout_marginBottom="5dip">
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/today"
-            android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginRight="5dip"/>
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
+            android:id="@+id/linearLayout15"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_height="match_parent" android:gravity="bottom|left" android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dip"
+                android:text="@string/today"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout16"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" android:gravity="bottom|right" android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/today"
+                android:textAppearance="?android:attr/textAppearanceSmall" android:layout_marginRight="5dip"/>
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Small Text"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -50,7 +79,7 @@
         android:id="@+id/linearLayout14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" android:visibility="visible">
+        android:orientation="vertical" android:visibility="invisible">
 
         <LinearLayout
             android:id="@+id/LinearLayout01"
@@ -254,7 +283,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout13"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:gravity="right">
+                android:layout_height="match_parent" android:gravity="right" android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/textView13"
