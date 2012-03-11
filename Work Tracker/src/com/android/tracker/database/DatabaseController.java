@@ -33,11 +33,13 @@ public class DatabaseController implements DatabaseControllerInterface {
 	private static final String JOBS_ID = "jobsid";
 	private static final String RECORD_DATE = "recorddate";
 	private static final String RECORD_TYPE = "recordtype";
+	private static final String RECORD_DESCRIPTION = "recorddescription";
 	private static final String RECORDS_TABLE_CREATE = "create table " + RECORDS_TABLE 
 			+ " (" + KEY_ROWID + " integer primary key autoincrement, "
 			+ JOBS_ID + " integer not null, "
 			+ RECORD_TYPE + " integer not null, "
-			+ RECORD_DATE + " text not null);";
+			+ RECORD_DATE + " text not null, "
+			+ RECORD_DESCRIPTION + " text not null);";
 	
 	private static final String VACATION_DAYS_TABLE = "vacationdays";
 	private static final String VACATION_DAY__DATE = "vacationdaydate";
@@ -87,6 +89,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 		tempValues.put(JOBS_ID, 0);
 		tempValues.put(RECORD_DATE, dateFormat.format(record.getDate()));
 		tempValues.put(RECORD_TYPE, record.getType());
+		tempValues.put(RECORD_DESCRIPTION, record.getDescription());
 		record.setId(db.insert(RECORDS_TABLE, null, tempValues));
 		
 		if(!opened) close();
@@ -101,6 +104,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 		tempValues.put(JOBS_ID, 0);
 		tempValues.put(RECORD_DATE, dateFormat.format(record.getDate()));
 		tempValues.put(RECORD_TYPE, record.getType());
+		tempValues.put(RECORD_DESCRIPTION, record.getDescription());
 		db.update(RECORDS_TABLE, tempValues, KEY_ROWID+"=?", new String[] {
 				Long.toString(record.getId())});
 		
@@ -124,7 +128,8 @@ public class DatabaseController implements DatabaseControllerInterface {
         		KEY_ROWID, 
         		JOBS_ID,
         		RECORD_DATE,
-        		RECORD_TYPE}, 
+        		RECORD_TYPE,
+        		RECORD_DESCRIPTION}, 
                 null, 
                 null, 
                 null, 
@@ -145,6 +150,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 					record.setJob(getJobForId(cursor.getLong(1)));
 					record.setDate(dateFormat.parse(cursor.getString(2)));
 					record.setType(cursor.getInt(3));
+					record.setDescription(cursor.getString(4));
 					records.add(record);
 				} catch (ParseException e)
 				{
@@ -166,7 +172,8 @@ public class DatabaseController implements DatabaseControllerInterface {
         		KEY_ROWID, 
         		JOBS_ID,
         		RECORD_DATE,
-        		RECORD_TYPE}, 
+        		RECORD_TYPE,
+        		RECORD_DESCRIPTION}, 
                 null, 
                 null, 
                 null, 
@@ -193,6 +200,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 								record.setJob(getJobForId(cursor.getLong(1)));
 								record.setDate(dateFormat.parse(cursor.getString(2)));
 								record.setType(cursor.getInt(3));
+								record.setDescription(cursor.getString(4));
 								records.add(record);
 							} catch (ParseException e)
 							{

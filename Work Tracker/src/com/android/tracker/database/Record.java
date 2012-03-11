@@ -15,6 +15,7 @@ public class Record {
 	private int type;
 	private Date date;
 	private Job job;
+	private String description; 
 
 	
 	public Record(){};
@@ -56,5 +57,15 @@ public class Record {
 	public void setId(long id)
 	{
 		this.id = id;
+	}
+	
+	public String getDescription()
+	{
+		return description;
+	}
+	
+	public void setDescription(String description)
+	{
+		this.description = description;
 	}
 }
