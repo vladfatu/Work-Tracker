@@ -6,6 +6,9 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -14,6 +17,7 @@ import android.widget.ListView;
 import com.android.tracker.R;
 import com.android.tracker.database.DatabaseController;
 import com.android.tracker.database.Record;
+
 
 /**
  * @author vlad
@@ -89,6 +93,34 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 		// aici ar trebui sa apara un dialog in care sa editam record-ul(probabil data e singura care poate fi schimbata)
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.records_layout_menu, menu);
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		switch (item.getItemId()) 
+		{
+		case R.id.addEntry:
+			// TODO startActivity(new Intent(this, RecordsActivity.class));
+			return true;
+		case R.id.deleteVisibleEntries:
+			// TODO startActivity(new Intent(this, JobsListActivity.class));
+			return true;
+		case R.id.sendAsCsv:
+			// TODO startActivity(new Intent(this, ReportsActivity.class));
+			return true;
+		case R.id.advancedSearch:
+			 //TODO startActivity(new Intent(this, SettingsActivity.class));
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 }

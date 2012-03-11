@@ -15,6 +15,7 @@ public class Record {
 	private int type;
 	private Date date;
 	private Job job;
+
 	
 	public Record(){};
 	

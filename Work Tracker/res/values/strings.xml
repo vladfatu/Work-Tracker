@@ -20,5 +20,9 @@
     <string name="reports_menu">Reports</string>
     <string name="backup_restore_menu">Backup &amp; Restore</string>
     <string name="help_menu">Help</string>
+    <string name="add_entry_menu">Add Entry</string>
+    <string name="delete_visible_entries_menu">Delete Visible Entries</string>
+    <string name="send_as_csv">Send as CSV</string>
+    <string name="advanced_search_menu">Advanced Search</string>
 
 </resources>
