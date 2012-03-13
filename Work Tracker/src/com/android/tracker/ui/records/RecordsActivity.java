@@ -118,6 +118,9 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 		case R.id.advancedSearch:
 			 //TODO startActivity(new Intent(this, SettingsActivity.class));
 			return true;
+		case R.id.normalSearch:
+			 //TODO startActivity(new Intent(this, SettingsActivity.class));
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

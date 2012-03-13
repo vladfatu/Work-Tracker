@@ -4,6 +4,7 @@
     <item android:id="@+id/deleteVisibleEntries" android:title="@string/delete_visible_entries_menu" android:icon="@drawable/ic_launcher"></item>
     <item android:id="@+id/sendAsCsv" android:icon="@drawable/ic_launcher" android:title="@string/send_as_csv"></item>
     <item android:id="@+id/advancedSearch" android:icon="@drawable/ic_launcher" android:title="@string/advanced_search_menu"></item>
+    <item android:id="@+id/normalSearch" android:title="@string/normal_search_menu" android:visible="false" android:icon="@drawable/ic_launcher"></item>
     
 
 </menu>

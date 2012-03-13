@@ -34,8 +34,9 @@ public class RecordsAdapter extends ArrayAdapter<Record> {
                 v = vi.inflate(R.layout.record_row, null);
             }
             Record o = items.get(position);
+
             if (o != null) {
-                    TextView dateView = (TextView) v.findViewById(R.id.dateView);
+                    TextView dateView = (TextView) v.findViewById(R.id.startDateView);
                     
                     if (dateView != null) {
                     	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -44,6 +45,17 @@ public class RecordsAdapter extends ArrayAdapter<Record> {
                     	dateView.setText(formattedDate);                         
                     }
             }
+           
+            if (o != null) {
+                TextView dateView = (TextView) v.findViewById(R.id.endDateView);
+                
+                if (dateView != null) {
+                	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String formattedDate = df.format(o.getDate());
+                    
+                	dateView.setText(formattedDate);                         
+                }
+        }
             return v;
     	}
     

@@ -24,5 +24,11 @@
     <string name="delete_visible_entries_menu">Delete Visible Entries</string>
     <string name="send_as_csv">Send as CSV</string>
     <string name="advanced_search_menu">Advanced Search</string>
+    <string name="start_date">Start date</string>
+    <string name="start_date1">Start date:</string>
+    <string name="end_date1">End date:</string>
+    <string name="middle_line">" - "</string>
+    <string name="total‌_income">Total Income:</string>
+    <string name="normal_search_menu">Normal Search</string>
 
 </resources>
