@@ -78,7 +78,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 	public void addRecord(Record record)
 	{
 		Boolean opened = true;
-		if(!db.isOpen()) 
+		if(db == null || !db.isOpen()) 
 		{
 			open(); 
 			opened = false;
@@ -244,7 +244,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 	public void deleteRecord(Record record)
 	{
 		Boolean opened = true;
-		if(!db.isOpen()) 
+		if(db == null || !db.isOpen()) 
 		{
 			open(); 
 			opened = false;
@@ -350,7 +350,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 	public void deleteJob(Job job)
 	{
 		Boolean opened = true;
-		if(!db.isOpen()) 
+		if(db == null || !db.isOpen()) 
 		{
 			open(); 
 			opened = false;

@@ -28,7 +28,7 @@
     <string name="start_date1">Start date:</string>
     <string name="end_date1">End date:</string>
     <string name="middle_line">" - "</string>
-    <string name="total‌_income">Total Income:</string>
     <string name="normal_search_menu">Normal Search</string>
+    <string name="tot_income">Total Income:</string>
 
 </resources>

@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -101,6 +102,18 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 		inflater.inflate(R.menu.records_layout_menu, menu);
 		return true;
 	}
+	
+	private void sendEmail()
+	{
+		final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+		emailIntent.setType("plain/text");
+		// emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new
+		// String[]{ address.getText().toString()});
+		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Work Tracker");
+		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is an email from Work Tracker!");
+		startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+	}
 
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
@@ -113,7 +126,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 			// TODO startActivity(new Intent(this, JobsListActivity.class));
 			return true;
 		case R.id.sendAsCsv:
-			// TODO startActivity(new Intent(this, ReportsActivity.class));
+			sendEmail();
 			return true;
 		case R.id.advancedSearch:
 			 //TODO startActivity(new Intent(this, SettingsActivity.class));

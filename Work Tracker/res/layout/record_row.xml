@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dip"
-                android:text="@string/total‌_income"
+                android:text="@string/tot_income"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
