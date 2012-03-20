@@ -41,9 +41,9 @@
                 android:layout_marginRight="5dip"
                 android:text="@string/today"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/todayHoursTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Medium Text"
@@ -63,9 +63,9 @@
                 android:layout_marginRight="5dip"
                 android:text="@string/income"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
+
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/todayIncomeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Small Text"
@@ -221,9 +221,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/this_week"
                     android:textAppearance="?android:attr/textAppearanceSmall" android:layout_marginRight="5dip"/>
-
+
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/thisWeekHoursTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Small Text"
@@ -242,9 +242,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/income"
                     android:textAppearance="?android:attr/textAppearanceSmall" android:layout_marginRight="5dip"/>
-
+
                 <TextView
-                    android:id="@+id/textView10"
+                    android:id="@+id/thisWeekIncomeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Small Text"
@@ -270,9 +270,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/this_month"
                     android:textAppearance="?android:attr/textAppearanceSmall" android:layout_marginRight="5dip"/>
-
+
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/thisMonthHourTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Small Text"
@@ -291,9 +291,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/income"
                     android:textAppearance="?android:attr/textAppearanceSmall" android:layout_marginRight="5dip"/>
-
+
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/thisMonthIncomeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Small Text"

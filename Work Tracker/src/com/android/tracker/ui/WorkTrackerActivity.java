@@ -1,5 +1,9 @@
 package com.android.tracker.ui;
 
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +14,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.tracker.R;
+import com.android.tracker.database.DatabaseController;
+import com.android.tracker.database.Job;
+import com.android.tracker.database.Record;
 import com.android.tracker.jobs.JobsListActivity;
 import com.android.tracker.reports.ReportsActivity;
 import com.android.tracker.settings.SettingsActivity;
@@ -27,6 +35,14 @@ import com.google.ads.AdView;
 public class WorkTrackerActivity extends Activity implements OnClickListener {
 	
 	private Button punchInButton;
+	private TextView todayHoursTextView;
+	private TextView todayIncomeTextView;
+	private TextView thisWeekHoursTextView;
+	private TextView thisWeekIncomeTextView;
+	private TextView thisMonthHoursTextView;
+	private TextView thisMonthIncomeTextView;
+	private DatabaseController dbController;
+	private Job currentJob;
 
 	AdView adView;
 	
@@ -46,11 +62,46 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
         // Initiate a generic request to load it with an ad
         adView.loadAd(new AdRequest());
         
+        dbController = new DatabaseController(this);
+        
         punchInButton = (Button) findViewById(R.id.punchInButton);
         punchInButton.setOnClickListener(this);
+    	todayHoursTextView = (TextView) findViewById(R.id.todayHoursTextView);
+    	todayIncomeTextView = (TextView) findViewById(R.id.todayIncomeTextView);
+    	thisWeekHoursTextView = (TextView) findViewById(R.id.thisWeekHoursTextView);
+    	thisWeekIncomeTextView = (TextView) findViewById(R.id.thisWeekIncomeTextView);
+    	thisMonthHoursTextView = (TextView) findViewById(R.id.thisMonthHourTextView);
+    	thisMonthIncomeTextView = (TextView) findViewById(R.id.thisMonthIncomeTextView);
     }
     
-    public boolean onCreateOptionsMenu(Menu menu)
+    private void updateUI()
+    {
+    	currentJob = dbController.getJobs().get(0);
+    	Calendar c = Calendar.getInstance();
+    	Date todayDate = c.getTime();
+    	todayDate.setHours(0);
+    	todayDate.setMinutes(0);
+    	todayDate.setSeconds(0);
+    	c.add(Calendar.DATE,1);
+    	Date tomorrowDate = c.getTime();
+    	ArrayList<Record> todayRecords = dbController.getRecords(todayDate, tomorrowDate, currentJob);
+    	int difDays;
+    	
+    	for(Record record:todayRecords)
+    	{
+    		//TODO
+    	}
+    	
+    	todayHoursTextView.setText("34");
+    }
+    
+    @Override
+	protected void onResume() {
+		super.onResume();
+		updateUI();
+	}
+
+	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.first_screen_menu, menu);
