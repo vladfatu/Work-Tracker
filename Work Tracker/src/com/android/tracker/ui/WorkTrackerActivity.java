@@ -12,8 +12,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.tracker.R;
@@ -43,6 +45,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
 	private TextView thisMonthIncomeTextView;
 	private DatabaseController dbController;
 	private Job currentJob;
+	private Spinner jobSpinner;
 
 	AdView adView;
 	
@@ -72,6 +75,8 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
     	thisWeekIncomeTextView = (TextView) findViewById(R.id.thisWeekIncomeTextView);
     	thisMonthHoursTextView = (TextView) findViewById(R.id.thisMonthHourTextView);
     	thisMonthIncomeTextView = (TextView) findViewById(R.id.thisMonthIncomeTextView);
+    	jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
+    	
     }
     
     private void updateUI()
@@ -95,10 +100,25 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
     	todayHoursTextView.setText("34");
     }
     
+    private void updateSpinner()
+    {
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        ArrayList<Job> jobs = dbController.getJobs();
+        for(Job job:jobs)
+        {
+        	adapter.add(job.getName());
+        }
+        jobSpinner.setAdapter(adapter);
+        //jobSpinner.setSelection(5);
+    }
+    
     @Override
 	protected void onResume() {
 		super.onResume();
 		//updateUI();
+		updateSpinner();
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu)

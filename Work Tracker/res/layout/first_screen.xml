@@ -9,9 +9,9 @@
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" android:layout_marginBottom="10dip" android:layout_marginTop="10dip">
-
+
         <Spinner
-            android:id="@+id/spinner1"
+            android:id="@+id/jobSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="90" />
