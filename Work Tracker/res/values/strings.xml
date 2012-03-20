@@ -30,5 +30,6 @@
     <string name="middle_line">" - "</string>
     <string name="normal_search_menu">Normal Search</string>
     <string name="tot_income">Total Income:</string>
+    <string name="punch_out">Punch Out</string>
 
 </resources>

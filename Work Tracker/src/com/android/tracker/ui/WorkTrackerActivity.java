@@ -98,7 +98,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
     @Override
 	protected void onResume() {
 		super.onResume();
-		updateUI();
+		//updateUI();
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -139,8 +139,12 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
 	{
 		if (v == punchInButton)
 		{
+			if(punchInButton.getText().equals(getResources().getString(R.string.punch_in)))
+				punchInButton.setText(R.string.punch_out);
+			else punchInButton.setText(R.string.punch_in);
 			startActivity(new Intent(this, JobsListActivity.class));
 		}
+		//pentru setarea vizibilitatii: var.setVisibility(View.GONE);
 		
 	}
 }
