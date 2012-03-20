@@ -3,143 +3,74 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" android:padding="10dip">
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_marginBottom="10dip" android:layout_marginTop="10dip">
-
-        <Spinner
-            android:id="@+id/jobSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="90" />
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/settings" android:layout_weight="10" android:textSize="20dip"/>
-
-    </LinearLayout>
+    android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_marginBottom="5dip">
-
-        <LinearLayout
-            android:id="@+id/linearLayout15"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" android:gravity="bottom|left" android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dip"
-                android:text="@string/today"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/todayHoursTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout16"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" android:gravity="bottom|right" android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dip"
-                android:text="@string/income"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/todayIncomeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Small Text"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout14"
+        android:id="@+id/mainLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" android:visibility="invisible">
+        android:orientation="vertical" android:padding="10dip">
 
         <LinearLayout
-            android:id="@+id/LinearLayout01"
+            android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:layout_marginTop="10dip" >
 
-            <TextView
-                android:id="@+id/TextView02"
+            <Spinner
+                android:id="@+id/jobSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dip"
-                android:text="@string/work_started_at"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:layout_weight="90" />
 
-            <TextView
-                android:id="@+id/textView5"
+            <Button
+                android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small Text"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:layout_weight="10"
+                android:text="@string/settings"
+                android:textSize="20dip" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout6"
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip" >
 
             <LinearLayout
-                android:id="@+id/linearLayout7"
+                android:id="@+id/linearLayout15"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="left"
                 android:layout_weight="1"
-                android:gravity="left" >
+                android:gravity="bottom|left" >
 
                 <TextView
-                    android:id="@+id/TextView03"
+                    android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dip"
-                    android:text="@string/hours_worked"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:text="@string/today"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
-                    android:id="@+id/TextView04"
+                    android:id="@+id/todayHoursTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Large Text"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium" android:maxLines="1"/>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout8"
+                android:id="@+id/linearLayout16"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="right" >
+                android:gravity="bottom|right" >
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dip"
@@ -147,162 +78,254 @@
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/todayIncomeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Small Text"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" android:maxLines="1"/>
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout5"
+            android:id="@+id/linearLayout14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dip" >
+            android:orientation="vertical"
+            android:visibility="invisible" >
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <EditText
-                android:id="@+id/editText1"
+            <LinearLayout
+                android:id="@+id/LinearLayout01"
                 android:layout_width="match_parent"
-                android:layout_height="32dip"
-                android:layout_weight="1"
-                android:textSize="12dip" />
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dip"
+                    android:text="@string/work_started_at"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Small Text"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/linearLayout7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:layout_weight="1"
+                    android:gravity="left" >
+
+                    <TextView
+                        android:id="@+id/TextView03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dip"
+                        android:text="@string/hours_worked"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Large Text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right" >
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dip"
+                        android:text="@string/income"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Small Text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dip" >
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <EditText
+                    android:id="@+id/editText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dip"
+                    android:layout_weight="1"
+                    android:textSize="12dip" />
+            </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/punchInButton"
-        android:layout_width="100dip"
-        android:layout_height="60dip"
-        android:layout_gravity="center"
-        android:text="@string/punch_in"
-        android:textSize="16dip" />
+        <Button
+            android:id="@+id/punchInButton"
+            android:layout_width="100dip"
+            android:layout_height="60dip"
+            android:layout_gravity="center"
+            android:text="@string/punch_in"
+            android:textSize="16dip" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="100dip"
-        android:layout_height="40dip"
-        android:text="@string/add" android:layout_gravity="center" android:textSize="12dip"/>
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="100dip"
+            android:layout_height="40dip"
+            android:layout_gravity="center"
+            android:text="@string/add"
+            android:textSize="12dip" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" android:layout_marginTop="30dip" android:layout_marginBottom="10dip">
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout9"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/total_hours"
-            android:textAppearance="?android:attr/textAppearanceLarge" android:layout_gravity="center" android:layout_marginBottom="10dip"/>
+            android:layout_marginBottom="10dip"
+            android:layout_marginTop="30dip"
+            android:orientation="vertical" >
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dip"
+                android:text="@string/total_hours"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <LinearLayout
-                android:id="@+id/linearLayout10"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:layout_weight="1" android:gravity="left">
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/textView7"
+                <LinearLayout
+                    android:id="@+id/linearLayout10"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/this_week"
-                    android:textAppearance="?android:attr/textAppearanceSmall" android:layout_marginRight="5dip"/>
-
-                <TextView
-                    android:id="@+id/thisWeekHoursTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Small Text"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left" >
 
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dip"
+                        android:text="@string/this_week"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/thisWeekHoursTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Small Text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" android:maxLines="1"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right" >
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dip"
+                        android:text="@string/income"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/thisWeekIncomeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Small Text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" android:maxLines="1"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout11"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:layout_weight="1" android:gravity="right">
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/textView9"
+                <LinearLayout
+                    android:id="@+id/linearLayout12"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/income"
-                    android:textAppearance="?android:attr/textAppearanceSmall" android:layout_marginRight="5dip"/>
-
-                <TextView
-                    android:id="@+id/thisWeekIncomeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Small Text"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left" >
 
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dip"
+                        android:text="@string/this_month"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/thisMonthHourTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Small Text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" android:maxLines="1"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right" >
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dip"
+                        android:text="@string/income"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/thisMonthIncomeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Small Text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" android:maxLines="1"/>
+                </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:id="@+id/linearLayout12"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:gravity="left" android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/this_month"
-                    android:textAppearance="?android:attr/textAppearanceSmall" android:layout_marginRight="5dip"/>
-
-                <TextView
-                    android:id="@+id/thisMonthHourTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Small Text"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout13"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:gravity="right" android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/income"
-                    android:textAppearance="?android:attr/textAppearanceSmall" android:layout_marginRight="5dip"/>
-
-                <TextView
-                    android:id="@+id/thisMonthIncomeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Small Text"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>
