@@ -18,11 +18,15 @@ public class Record {
 	private String description; 
 
 	
-	public Record(){};
+	public Record()
+	{
+		setDescription("");
+	};
 	
 	public Record(Date date)
 	{
 		this.date = date;
+		setDescription("");
 	}
 
 	public Date getDate() {

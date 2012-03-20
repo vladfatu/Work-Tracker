@@ -33,7 +33,7 @@ public class JobsListActivity extends Activity implements OnItemClickListener{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.records_layout);
+		setContentView(R.layout.jobs_layout);
 		
 		list = (ListView) findViewById(R.id.list);
 		jobs = new ArrayList<Job>();
