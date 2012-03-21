@@ -48,7 +48,9 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 		
 		// asta e doar de test, adaugarea record-rurilor va trebui facuta din ecranul principal, nu de aici
 		Calendar c = Calendar.getInstance();
-		dbController.addRecord(new Record(c.getTime()));
+		Record record = new Record(c.getTime());
+		if (dbController.getJobs().get(0) != null) record.setJob(dbController.getJobs().get(0));
+		dbController.addRecord(record);
 		
 		viewOrders = new Runnable(){
             

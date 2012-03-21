@@ -1,9 +1,11 @@
 package com.android.tracker.ui;
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
+import utils.Constants;
+import utils.Utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -34,7 +38,7 @@ import com.google.ads.AdView;
  * @author vlad
  *
  */
-public class WorkTrackerActivity extends Activity implements OnClickListener {
+public class WorkTrackerActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 	
 	private Button punchInButton;
 	private TextView todayHoursTextView;
@@ -46,6 +50,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
 	private DatabaseController dbController;
 	private Job currentJob;
 	private Spinner jobSpinner;
+	ArrayList<Job> jobs;
 
 	AdView adView;
 	
@@ -76,28 +81,20 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
     	thisMonthHoursTextView = (TextView) findViewById(R.id.thisMonthHourTextView);
     	thisMonthIncomeTextView = (TextView) findViewById(R.id.thisMonthIncomeTextView);
     	jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
+    	jobSpinner.setOnItemSelectedListener(this);
     	
     }
     
     private void updateUI()
     {
-    	currentJob = dbController.getJobs().get(0);
-    	Calendar c = Calendar.getInstance();
-    	Date todayDate = c.getTime();
-    	todayDate.setHours(0);
-    	todayDate.setMinutes(0);
-    	todayDate.setSeconds(0);
-    	c.add(Calendar.DATE,1);
-    	Date tomorrowDate = c.getTime();
-    	ArrayList<Record> todayRecords = dbController.getRecords(todayDate, tomorrowDate, currentJob);
-    	int difDays;
-    	
-    	for(Record record:todayRecords)
+    	if (currentJob != null)
     	{
-    		//TODO
+	    	Calendar c = Calendar.getInstance();
+	    	Date nowDate = c.getTime();
+	    	
+	    	ArrayList<Record> todayRecords = dbController.getRecords(Utils.todayFirstHour(), nowDate, currentJob);
+	    	todayHoursTextView.setText(Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(todayRecords), true));
     	}
-    	
-    	todayHoursTextView.setText("34");
     }
     
     private void updateSpinner()
@@ -105,20 +102,31 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
     	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
-        ArrayList<Job> jobs = dbController.getJobs();
+        jobs = dbController.getJobs();
         for(Job job:jobs)
         {
         	adapter.add(job.getName());
         }
         jobSpinner.setAdapter(adapter);
-        //jobSpinner.setSelection(5);
+        long currentJobId = Utils.getLongFromPrefs(this, Constants.JOB_ID_PREF, -1);
+        if (currentJobId != -1)
+        {
+        	for (int i = 0; i < jobs.size(); i++)
+        	{
+        		if (jobs.get(i).getId() == currentJobId)
+        		{
+        			currentJob = jobs.get(i);
+        			jobSpinner.setSelection(i);
+        		}
+        	}
+        }
     }
     
     @Override
 	protected void onResume() {
 		super.onResume();
-		//updateUI();
 		updateSpinner();
+		updateUI();
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -165,6 +173,19 @@ public class WorkTrackerActivity extends Activity implements OnClickListener {
 			startActivity(new Intent(this, JobsListActivity.class));
 		}
 		//pentru setarea vizibilitatii: var.setVisibility(View.GONE);
+		
+	}
+
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3)
+	{
+		currentJob = jobs.get(position);
+		Utils.setLongToPrefs(this, Constants.JOB_ID_PREF, currentJob.getId());
+		
+	}
+
+	public void onNothingSelected(AdapterView<?> arg0)
+	{
+		// TODO Auto-generated method stub
 		
 	}
 }

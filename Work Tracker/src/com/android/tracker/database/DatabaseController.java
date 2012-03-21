@@ -86,7 +86,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 		
  
 		ContentValues tempValues = new ContentValues();
-		tempValues.put(JOBS_ID, 0);
+		tempValues.put(JOBS_ID, record.getJob().getId());
 		tempValues.put(RECORD_DATE, dateFormat.format(record.getDate()));
 		tempValues.put(RECORD_TYPE, record.getType());
 		tempValues.put(RECORD_DESCRIPTION, record.getDescription());
