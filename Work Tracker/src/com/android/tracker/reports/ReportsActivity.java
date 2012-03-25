@@ -1,6 +1,9 @@
 package com.android.tracker.reports;
 
 import com.android.tracker.R;
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,12 +26,24 @@ public class ReportsActivity extends Activity{
 	private Menu reports_layout_menu;
 	private Boolean isAdvanced = false;
 	
+	AdView adView;
+	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 
 	super.onCreate(savedInstanceState);
 	
-	setContentView(R.layout.reports_layout); 
+	setContentView(R.layout.reports_layout);
+	
+    adView = new AdView(this, AdSize.BANNER, "a14de914472599e"); 
+    
+    LinearLayout layout = (LinearLayout)findViewById(R.id.mainLayout);
+
+    // Add the adView to it
+    layout.addView(adView);
+
+    // Initiate a generic request to load it with an ad
+    adView.loadAd(new AdRequest());
 	
     normalLayout = (LinearLayout) findViewById(R.id.normalLayout);
     advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
