@@ -9,6 +9,7 @@ import utils.Utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,6 +51,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	private DatabaseController dbController;
 	private Job currentJob;
 	private Spinner jobSpinner;
+	private LinearLayout punchInInfoLayout;
 	ArrayList<Job> jobs;
 
 	AdView adView;
@@ -82,6 +84,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
     	thisMonthIncomeTextView = (TextView) findViewById(R.id.thisMonthIncomeTextView);
     	jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
     	jobSpinner.setOnItemSelectedListener(this);
+    	punchInInfoLayout = (LinearLayout) findViewById(R.id.punchInInfoLayout);
     	
     }
     
@@ -94,6 +97,12 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	    	
 	    	ArrayList<Record> todayRecords = dbController.getRecords(Utils.todayFirstHour(), nowDate, currentJob);
 	    	todayHoursTextView.setText(Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(todayRecords), true));
+	    	//int todayIncome = Integer.parseInt(Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(todayRecords), true))*currentJob.getPricePerHour();
+	    	//todayIncomeTextView.setText(todayIncome);
+	    	ArrayList<Record> thisWeekRecords = dbController.getRecords(Utils.firstDayOfThisWeek(), nowDate, currentJob);
+	    	thisWeekHoursTextView.setText(Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(thisWeekRecords), true));
+	    	ArrayList<Record> thisMonthRecords = dbController.getRecords(Utils.firstDayOfThisMonth(), nowDate, currentJob);
+	    	thisMonthHoursTextView.setText(Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(thisMonthRecords), true));
     	}
     }
     
@@ -168,9 +177,15 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 		if (v == punchInButton)
 		{
 			if(punchInButton.getText().equals(getResources().getString(R.string.punch_in)))
+			{
 				punchInButton.setText(R.string.punch_out);
-			else punchInButton.setText(R.string.punch_in);
-			startActivity(new Intent(this, JobsListActivity.class));
+				punchInInfoLayout.setVisibility(View.VISIBLE);
+			}
+			else 
+			{
+				punchInButton.setText(R.string.punch_in);
+				punchInInfoLayout.setVisibility(View.INVISIBLE);
+			}
 		}
 		//pentru setarea vizibilitatii: var.setVisibility(View.GONE);
 		
