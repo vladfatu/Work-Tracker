@@ -95,14 +95,21 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	    	Calendar c = Calendar.getInstance();
 	    	Date nowDate = c.getTime();
 	    	
+	    	
 	    	ArrayList<Record> todayRecords = dbController.getRecords(Utils.todayFirstHour(), nowDate, currentJob);
-	    	todayHoursTextView.setText(Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(todayRecords), true));
-	    	//int todayIncome = Integer.parseInt(Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(todayRecords), true))*currentJob.getPricePerHour();
-	    	//todayIncomeTextView.setText(todayIncome);
+	    	Calendar t = Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(todayRecords), true);
+	    	todayHoursTextView.setText(Constants.dateFormatterHHMM.format(t.getTime()));
+	       	todayIncomeTextView.setText(Integer.toString((int)(t.getTimeInMillis()/3600000)*currentJob.getPricePerHour()));
+
 	    	ArrayList<Record> thisWeekRecords = dbController.getRecords(Utils.firstDayOfThisWeek(), nowDate, currentJob);
-	    	thisWeekHoursTextView.setText(Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(thisWeekRecords), true));
+	    	Calendar w = Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(thisWeekRecords), true);
+	    	thisWeekHoursTextView.setText(Constants.dateFormatterHHMM.format(w.getTime()));
+	       	thisWeekIncomeTextView.setText(Integer.toString((int)(w.getTimeInMillis()/3600000)*currentJob.getPricePerHour()));
+
 	    	ArrayList<Record> thisMonthRecords = dbController.getRecords(Utils.firstDayOfThisMonth(), nowDate, currentJob);
-	    	thisMonthHoursTextView.setText(Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(thisMonthRecords), true));
+	    	Calendar m = Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(thisMonthRecords), true);	
+	    	thisMonthHoursTextView.setText(Constants.dateFormatterHHMM.format(m.getTime()));
+	       	thisMonthIncomeTextView.setText(Integer.toString((int)((m.getTimeInMillis()/3600000)*currentJob.getPricePerHour())));
     	}
     }
     

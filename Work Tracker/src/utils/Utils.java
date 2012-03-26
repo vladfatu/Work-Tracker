@@ -189,7 +189,7 @@ public class Utils {
 		return entries;
 	}
 	
-	public static String getHoursWorkedFromEntries(ArrayList<Entry> entries, Boolean useNowAsLastPunchOut)
+	public static Calendar getHoursWorkedFromEntries(ArrayList<Entry> entries, Boolean useNowAsLastPunchOut)
 	{
 		Calendar c = Calendar.getInstance();
 		c.clear();
@@ -201,7 +201,8 @@ public class Utils {
 				c.add(Calendar.MILLISECOND, (int) (Calendar.getInstance().getTime().getTime() - entry.getPunchInRecord().getDate().getTime()));
 			}
 		}
-		return Constants.dateFormatterHHMM.format(c.getTime());
+		//return Constants.dateFormatterHHMM.format(c.getTime());
+		return c;
 	}
 
 }
