@@ -27,6 +27,7 @@ import com.android.tracker.R;
 import com.android.tracker.database.DatabaseController;
 import com.android.tracker.database.Job;
 import com.android.tracker.database.Record;
+import com.android.tracker.jobs.JobSettingsActivity;
 import com.android.tracker.jobs.JobsListActivity;
 import com.android.tracker.reports.ReportsActivity;
 import com.android.tracker.settings.SettingsActivity;
@@ -52,6 +53,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	private Job currentJob;
 	private Spinner jobSpinner;
 	private LinearLayout punchInInfoLayout;
+	private Button jobSettingsButton;
 	ArrayList<Job> jobs;
 
 	AdView adView;
@@ -85,6 +87,9 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
     	jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
     	jobSpinner.setOnItemSelectedListener(this);
     	punchInInfoLayout = (LinearLayout) findViewById(R.id.punchInInfoLayout);
+    	jobSettingsButton = (Button) findViewById(R.id.jobSettingsButton);
+    	jobSettingsButton.setOnClickListener(this);
+    	
     	
     }
     
@@ -194,7 +199,13 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				punchInInfoLayout.setVisibility(View.INVISIBLE);
 			}
 		}
-		//pentru setarea vizibilitatii: var.setVisibility(View.GONE);
+		
+		if(v == jobSettingsButton)
+		{
+			Intent i = new Intent(this, JobSettingsActivity.class);
+			i.putExtra("CURRENT_JOB", currentJob.getId());
+			startActivity(i);
+		}
 		
 	}
 

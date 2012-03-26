@@ -25,7 +25,7 @@
                 android:layout_weight="90" />
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/jobSettingsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
