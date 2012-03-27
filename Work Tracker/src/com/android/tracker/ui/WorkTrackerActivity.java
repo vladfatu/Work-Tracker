@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	private Spinner jobSpinner;
 	private LinearLayout punchInInfoLayout;
 	private Button jobSettingsButton;
+	private EditText descriptionEditText;
 	ArrayList<Job> jobs;
 
 	AdView adView;
@@ -89,6 +91,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
     	punchInInfoLayout = (LinearLayout) findViewById(R.id.punchInInfoLayout);
     	jobSettingsButton = (Button) findViewById(R.id.jobSettingsButton);
     	jobSettingsButton.setOnClickListener(this);
+    	descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
     	
     	
     }
@@ -121,6 +124,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 			{
 				punchInButton.setText(R.string.punch_out);
 				punchInInfoLayout.setVisibility(View.VISIBLE);
+				descriptionEditText.setText(Utils.getStringFromPrefs(this, Constants.DESCRIPTION, ""));
 			}
 			else 
 			{
@@ -161,7 +165,13 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 		updateSpinner();
 		updateUI();
 	}
-
+    
+    protected void onPause()
+    {
+    	super.onPause();
+    	Utils.setStringToPrefs(this, Constants.DESCRIPTION, descriptionEditText.getText().toString());
+    }
+    
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		MenuInflater inflater = getMenuInflater();
@@ -203,6 +213,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 			Boolean punchedIn = Utils.getBooleanFromPrefs(this, Constants.PUNCH_IN_PREF, false);
 			if(punchedIn==false)
 			{
+				descriptionEditText.setText("");
 				punchInButton.setText(R.string.punch_out);
 				punchInInfoLayout.setVisibility(View.VISIBLE);
 				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, true);
