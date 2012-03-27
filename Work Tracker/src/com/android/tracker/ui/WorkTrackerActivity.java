@@ -56,6 +56,9 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	private LinearLayout punchInInfoLayout;
 	private Button jobSettingsButton;
 	private EditText descriptionEditText;
+	private TextView workStartedAtTextView;
+	private TextView hoursWorkedTextView;
+	private TextView hoursWorkedIncomeTextView;
 	ArrayList<Job> jobs;
 
 	AdView adView;
@@ -92,7 +95,9 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
     	jobSettingsButton = (Button) findViewById(R.id.jobSettingsButton);
     	jobSettingsButton.setOnClickListener(this);
     	descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
-    	
+    	workStartedAtTextView = (TextView) findViewById(R.id.workStartedAtTextView);
+    	hoursWorkedTextView = (TextView) findViewById(R.id.hoursWorkedTextView);
+    	hoursWorkedIncomeTextView = (TextView) findViewById(R.id.hoursWorkedIncomeTextView);
     	
     }
     
@@ -125,6 +130,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				punchInButton.setText(R.string.punch_out);
 				punchInInfoLayout.setVisibility(View.VISIBLE);
 				descriptionEditText.setText(Utils.getStringFromPrefs(this, Constants.DESCRIPTION, ""));
+				descriptionEditText.setSelection(descriptionEditText.length());
 			}
 			else 
 			{
@@ -132,6 +138,12 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				punchInInfoLayout.setVisibility(View.INVISIBLE);
 			}
     	}
+    }
+    
+    private void updatePunchInInfoLayout()
+    {
+    	//TODO see if is not better to introduce the code of "updatePunchInInfoLayout()" in "updateUI()"
+    	workStartedAtTextView.setText("0");
     }
     
     private void updateSpinner()
@@ -164,6 +176,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 		super.onResume();
 		updateSpinner();
 		updateUI();
+		updatePunchInInfoLayout();
 	}
     
     protected void onPause()
@@ -213,16 +226,19 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 			Boolean punchedIn = Utils.getBooleanFromPrefs(this, Constants.PUNCH_IN_PREF, false);
 			if(punchedIn==false)
 			{
-				descriptionEditText.setText("");
 				punchInButton.setText(R.string.punch_out);
 				punchInInfoLayout.setVisibility(View.VISIBLE);
 				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, true);
+				updatePunchInInfoLayout();
+				
 			}
 			else 
 			{
 				punchInButton.setText(R.string.punch_in);
 				punchInInfoLayout.setVisibility(View.INVISIBLE);
+				descriptionEditText.setText("");
 				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, false);
+				
 			}
 		}
 		

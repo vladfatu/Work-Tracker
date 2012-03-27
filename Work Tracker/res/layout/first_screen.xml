@@ -107,7 +107,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/workStartedAtTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Small Text"
@@ -136,7 +136,7 @@
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     <TextView
-                        android:id="@+id/TextView04"
+                        android:id="@+id/hoursWorkedTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Large Text"
@@ -159,7 +159,7 @@
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/hoursWorkedIncomeTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Small Text"

@@ -1,5 +1,8 @@
 package com.android.tracker.reports;
 
+import utils.Constants;
+import utils.Utils;
+
 import com.android.tracker.R;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
@@ -23,8 +26,6 @@ public class ReportsActivity extends Activity{
 	
 	private LinearLayout normalLayout;
 	private LinearLayout advancedLayout;
-	private Menu reports_layout_menu;
-	private Boolean isAdvanced = false;
 	
 	AdView adView;
 	
@@ -48,6 +49,22 @@ public class ReportsActivity extends Activity{
     normalLayout = (LinearLayout) findViewById(R.id.normalLayout);
     advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
     
+	}
+	
+	public void onResume()
+	{
+		super.onResume();
+		if(Utils.getBooleanFromPrefs(this, Constants.REPORTS_ADVANCED, false))
+		{
+			normalLayout.setVisibility(View.GONE);
+			advancedLayout.setVisibility(View.VISIBLE);
+		}
+		else 
+		{
+			normalLayout.setVisibility(View.VISIBLE);
+			advancedLayout.setVisibility(View.GONE);
+		}
+		
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -74,7 +91,7 @@ public class ReportsActivity extends Activity{
 	{
 		normalLayout.setVisibility(View.VISIBLE);
 		advancedLayout.setVisibility(View.GONE);
-		isAdvanced = false;
+		Utils.setBooleanToPrefs(this, Constants.REPORTS_ADVANCED, false);
 		
 		// TODO Auto-generated method stub
 		
@@ -84,7 +101,7 @@ public class ReportsActivity extends Activity{
 	{
 		normalLayout.setVisibility(View.GONE);
 		advancedLayout.setVisibility(View.VISIBLE);
-		isAdvanced = true;
+		Utils.setBooleanToPrefs(this, Constants.REPORTS_ADVANCED, true);
 		
 		// TODO Auto-generated method stub
 		
@@ -92,7 +109,7 @@ public class ReportsActivity extends Activity{
 	
 	public boolean onPrepareOptionsMenu(Menu menu)
 	{
-		if(isAdvanced)
+		if(Utils.getBooleanFromPrefs(this, Constants.REPORTS_ADVANCED, false))
 		{
 			menu.findItem(R.id.normalSearch).setVisible(true);
 			menu.findItem(R.id.advancedSearch).setVisible(false);
