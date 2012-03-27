@@ -115,6 +115,18 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	    	Calendar m = Utils.getHoursWorkedFromEntries(Utils.getEntriesFromRecords(thisMonthRecords), true);	
 	    	thisMonthHoursTextView.setText(Constants.dateFormatterHHMM.format(m.getTime()));
 	       	thisMonthIncomeTextView.setText(Integer.toString((int)((m.getTimeInMillis()/3600000)*currentJob.getPricePerHour())));
+	       	
+	       	Boolean punchedIn = Utils.getBooleanFromPrefs(this, Constants.PUNCH_IN_PREF, false);
+			if(punchedIn==true)
+			{
+				punchInButton.setText(R.string.punch_out);
+				punchInInfoLayout.setVisibility(View.VISIBLE);
+			}
+			else 
+			{
+				punchInButton.setText(R.string.punch_in);
+				punchInInfoLayout.setVisibility(View.INVISIBLE);
+			}
     	}
     }
     
@@ -188,15 +200,18 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	{
 		if (v == punchInButton)
 		{
-			if(punchInButton.getText().equals(getResources().getString(R.string.punch_in)))
+			Boolean punchedIn = Utils.getBooleanFromPrefs(this, Constants.PUNCH_IN_PREF, false);
+			if(punchedIn==false)
 			{
 				punchInButton.setText(R.string.punch_out);
 				punchInInfoLayout.setVisibility(View.VISIBLE);
+				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, true);
 			}
 			else 
 			{
 				punchInButton.setText(R.string.punch_in);
 				punchInInfoLayout.setVisibility(View.INVISIBLE);
+				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, false);
 			}
 		}
 		

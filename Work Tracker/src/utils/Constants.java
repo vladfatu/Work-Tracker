@@ -8,5 +8,5 @@ public class Constants {
 	public static SimpleDateFormat dateFormatterHHMM = new SimpleDateFormat("HH:mm");
 	
 	public static String JOB_ID_PREF = "com.android.tracker.JOB_ID_PREF";
-
+	public static String PUNCH_IN_PREF = "com.android.taker.PUNCH_IN_PREF";
 }
