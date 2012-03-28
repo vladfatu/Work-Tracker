@@ -41,6 +41,16 @@ public class JobsListAdapter extends ArrayAdapter<Job>{
                     {
                     	nameView.setText(jobItem.getName());
                     }
+                    TextView clientView = (TextView) v.findViewById(R.id.clientView);
+                    if (clientView != null)
+                    {
+                    	clientView.setText(jobItem.getClient());
+                    }
+                    TextView pricePerHourView = (TextView) v.findViewById(R.id.pricePerHourView);
+                    if (pricePerHourView != null)
+                    {
+                    	pricePerHourView.setText(Integer.toString(jobItem.getPricePerHour()));
+                    }
             }
             return v;
     	}

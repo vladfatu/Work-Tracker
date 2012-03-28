@@ -9,6 +9,8 @@ public class Job {
 	private long id;
 	private String name;
 	private int pricePerHour;
+	private String client;
+	
 
 	public long getId() {
 		return id;
@@ -34,6 +36,16 @@ public class Job {
 	public void setPricePerHour(int pricePerHour)
 	{
 		this.pricePerHour = pricePerHour;
+	}
+
+	public String getClient()
+	{
+		return client;
+	}
+
+	public void setClient(String client)
+	{
+		this.client = client;
 	}
 
 }

@@ -32,5 +32,10 @@
     <string name="tot_income">Total Income:</string>
     <string name="punch_out">Punch Out</string>
     <string name="ok">Ok</string>
+    <string name="client">Client:</string>
+    <string name="price_per_hour">Price per hour:</string>
+    <string name="add_new_job">Add New Job</string>
+    <string name="name">Name:</string>
+    <string name="save">Save</string>
 
 </resources>

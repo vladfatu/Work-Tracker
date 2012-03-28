@@ -17,21 +17,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" android:layout_marginTop="10dip">
 
-        <TextView
-            android:id="@+id/clientView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+            android:layout_weight="1" android:gravity="left">
 
-        <TextView
-            android:id="@+id/incomeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/client" android:scrollbarAlwaysDrawVerticalTrack="false" android:layout_marginRight="5dip"/>
+
+            <TextView
+                android:id="@+id/clientView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" android:gravity="right">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dip"
+                android:text="@string/price_per_hour" />
+
+            <TextView
+                android:id="@+id/pricePerHourView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="TextView" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

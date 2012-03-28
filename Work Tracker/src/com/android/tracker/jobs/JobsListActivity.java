@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.tracker.R;
@@ -19,69 +21,57 @@ import com.android.tracker.widget.TrackerWidgetProvider;
 
 /**
  * @author vlad
- *
+ * 
  */
-public class JobsListActivity extends Activity implements OnItemClickListener{
-	
+public class JobsListActivity extends Activity implements OnItemClickListener, OnClickListener {
+
 	private ListView list;
 	private JobsListAdapter adapter;
 	private ArrayList<Job> jobs;
-	private ProgressDialog m_ProgressDialog = null; 
+	private ProgressDialog m_ProgressDialog = null;
 	private Runnable viewOrders;
 	private DatabaseController dbController;
-	
-	public void onCreate(Bundle savedInstanceState) {
+	private Button addNewJobButton;
+
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.jobs_layout);
-		
+
 		list = (ListView) findViewById(R.id.list);
 		jobs = new ArrayList<Job>();
-		
+
 		dbController = new DatabaseController(this);
-		Job job = new Job();
-		job.setName("Job1");
-		dbController.addJob(job);
-		
+
 		adapter = new JobsListAdapter(this, R.layout.jobs_row, jobs);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);
-		
-		viewOrders = new Runnable(){
-            
-            public void run() {
-                getJobs();
-            }
-        };
-        Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
-        thread.start();
-        m_ProgressDialog = ProgressDialog.show(this,    
-              "Please wait...", "Retrieving data ...", true);
+
+		addNewJobButton = (Button) findViewById(R.id.addNewJobButton);
+		addNewJobButton.setOnClickListener(this);
+
 	}
-	
+
 	private Runnable returnRes = new Runnable() {
 
-        public void run() {
-        	
-            if(jobs != null && jobs.size() > 0){
-                adapter.notifyDataSetChanged();
-              
-            }
-            m_ProgressDialog.dismiss();
-        }
-    };
-    
-    private void getJobs()
-	{
-		jobs.addAll(dbController.getJobs());
-		
-		try
+		public void run()
 		{
-			Thread.sleep(1000);
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
+
+			if (jobs != null && jobs.size() > 0)
+			{
+				adapter.notifyDataSetChanged();
+
+			}
+			m_ProgressDialog.dismiss();
 		}
+	};
+
+	private void getJobs()
+	{
+		jobs.removeAll(jobs);
+		jobs.addAll(dbController.getJobs());
+
 		runOnUiThread(returnRes);
 	}
 
@@ -92,9 +82,49 @@ public class JobsListActivity extends Activity implements OnItemClickListener{
 		sendBroadcast(intent);
 		finish();
 		Log.d("JobsListActivity", "sent");
-		// aici ar trebui sa se deschida activitatea "JobSettingsActivity" pentru jobul de la pozitia "position" 
+		// aici ar trebui sa se deschida activitatea "JobSettingsActivity"
+		// pentru jobul de la pozitia "position"
 		// TODO Auto-generated method stub
+
+	}
+
+	public void onClick(View v)
+	{
+		if (v == addNewJobButton)
+		{			
+			startActivity(new Intent(this, JobSettingsActivity.class));
+		}
 		
+
+	}
+
+	@Override
+	protected void onPause()
+	{
+		// TODO Auto-generated method stub
+		super.onPause();
+	}
+	
+	private void updateJobs(){
+		
+		viewOrders = new Runnable() {
+
+			public void run()
+			{
+				getJobs();
+			}
+		};
+		Thread thread = new Thread(null, viewOrders, "MagentoBackground");
+		thread.start();
+		m_ProgressDialog = ProgressDialog.show(this, "Please wait...", "Retrieving data ...", true);
+		
+	}
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		updateJobs();
+
 	}
 
 }
