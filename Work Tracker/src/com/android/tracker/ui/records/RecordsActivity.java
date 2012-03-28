@@ -115,6 +115,21 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 		return true;
 	}
 	
+	public void onResume()
+	{
+		super.onResume();
+		if(Utils.getBooleanFromPrefs(this, Constants.RECORDS_ADVANCED, false))
+		{
+			periodSpinner.setVisibility(View.GONE);
+			advancedLayout.setVisibility(View.VISIBLE);	
+		}
+		else
+		{
+			periodSpinner.setVisibility(View.VISIBLE);
+			advancedLayout.setVisibility(View.GONE);	
+		}
+	}
+	
 	private void sendEmail()
 	{
 		final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -155,6 +170,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 	{
 		periodSpinner.setVisibility(View.VISIBLE);
 		advancedLayout.setVisibility(View.GONE);
+		Utils.setBooleanToPrefs(this, Constants.RECORDS_ADVANCED, false);
 		
 		// TODO Auto-generated method stub
 		
@@ -164,9 +180,24 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 	{
 		periodSpinner.setVisibility(View.GONE);
 		advancedLayout.setVisibility(View.VISIBLE);
-		
+		Utils.setBooleanToPrefs(this, Constants.RECORDS_ADVANCED, true);
 		// TODO Auto-generated method stub
 		
 	}
 
+	public boolean onPrepareOptionsMenu(Menu menu)
+	{
+		if(Utils.getBooleanFromPrefs(this, Constants.RECORDS_ADVANCED, false))
+		{
+			menu.findItem(R.id.advancedSearch).setVisible(false);
+			menu.findItem(R.id.normalSearch).setVisible(true);
+		}
+		else
+		{
+			menu.findItem(R.id.advancedSearch).setVisible(true);
+			menu.findItem(R.id.normalSearch).setVisible(false);
+		}
+		return super.onPrepareOptionsMenu(menu);
+	
+	}
 }
