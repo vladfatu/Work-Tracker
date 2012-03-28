@@ -6,7 +6,7 @@
     android:orientation="vertical" android:padding="10dip">
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/normalLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -17,7 +17,7 @@
             android:layout_weight="1" />
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/periodSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -25,9 +25,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/advancedLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:visibility="gone">
+        android:layout_height="wrap_content"
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/button1"

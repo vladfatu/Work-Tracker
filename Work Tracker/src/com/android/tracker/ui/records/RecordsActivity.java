@@ -3,6 +3,9 @@ package com.android.tracker.ui.records;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import utils.Constants;
+import utils.Utils;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,7 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.android.tracker.R;
 import com.android.tracker.database.DatabaseController;
@@ -32,6 +37,9 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 	private ProgressDialog m_ProgressDialog = null; 
 	private Runnable viewOrders;
 	private DatabaseController dbController;
+	private Spinner periodSpinner;
+	private LinearLayout advancedLayout;
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,6 +48,8 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 		
 		list = (ListView) findViewById(R.id.list);
 		records = new ArrayList<Record>();
+		periodSpinner = (Spinner) findViewById(R.id.periodSpinner);
+		advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
 		
 		adapter = new RecordsAdapter(this, R.layout.record_row, records);
 		list.setAdapter(adapter);
@@ -131,14 +141,32 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 			sendEmail();
 			return true;
 		case R.id.advancedSearch:
-			 //TODO startActivity(new Intent(this, SettingsActivity.class));
+			advancedSearchClick();
 			return true;
 		case R.id.normalSearch:
-			 //TODO startActivity(new Intent(this, SettingsActivity.class));
+			 normalSearchClick();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void normalSearchClick() 
+	{
+		periodSpinner.setVisibility(View.VISIBLE);
+		advancedLayout.setVisibility(View.GONE);
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void advancedSearchClick() 
+	{
+		periodSpinner.setVisibility(View.GONE);
+		advancedLayout.setVisibility(View.VISIBLE);
+		
+		// TODO Auto-generated method stub
+		
 	}
 
 }
