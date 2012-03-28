@@ -223,9 +223,16 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	{
 		if (v == punchInButton)
 		{
+			Record record = new Record();
+			Calendar c = Calendar.getInstance();
+			//Job job = dbController.getJobs() ; !! function getJob(long id)?!
 			Boolean punchedIn = Utils.getBooleanFromPrefs(this, Constants.PUNCH_IN_PREF, false);
 			if(punchedIn==false)
 			{
+				record.setDate(c.getTime());
+				record.setType(1);
+				record.setDescription(descriptionEditText.getText().toString());
+				// ?? record.setJob(dbController.getJob(Utils.getLongFromPrefs(this, Constants.JOB_ID_PREF, -1)));
 				punchInButton.setText(R.string.punch_out);
 				punchInInfoLayout.setVisibility(View.VISIBLE);
 				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, true);
