@@ -11,4 +11,5 @@ public class Constants {
 	public static String PUNCH_IN_PREF = "com.android.tracker.PUNCH_IN_PREF";
 	public static String DESCRIPTION = "com.android.traker.DESCRIPTION";
 	public static String REPORTS_ADVANCED = "com.android.tracker.REPORTS_ADVANCED";
+	public static String RECORDS_ADVANCED = "com.android.tracker.RECORDS_ADVANCED";
 }
