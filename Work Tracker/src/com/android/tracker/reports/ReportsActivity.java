@@ -68,7 +68,7 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
     
 	}
 	
-    private void updateSpinner()
+    private void updateJobSpinner()
     {
     	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -93,10 +93,20 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
         }
     }
 	
+	private void updateTypeSpinner()
+	{
+    	ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.type_reports, android.R.layout.simple_spinner_item );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        typeSpinner.setAdapter(adapter);
+
+	}
+	
 	public void onResume()
 	{
 		super.onResume();
-		updateSpinner();
+		updateJobSpinner();
+		updateTypeSpinner();
 		if(Utils.getBooleanFromPrefs(this, Constants.REPORTS_ADVANCED, false))
 		{
 			typeSpinner.setVisibility(View.GONE);
@@ -109,7 +119,7 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 		}
 		
 	}
-	
+
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		

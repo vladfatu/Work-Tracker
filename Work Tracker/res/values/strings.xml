@@ -37,5 +37,10 @@
     <string name="add_new_job">Add New Job</string>
     <string name="name">Name:</string>
     <string name="save">Save</string>
+    <string-array name="type_reports">
+		<item>Daily</item>
+		<item>Weekly</item>
+		<item>Monthly</item>
+	</string-array>
 
 </resources>
