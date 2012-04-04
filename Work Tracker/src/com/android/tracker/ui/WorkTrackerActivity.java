@@ -165,7 +165,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
         		if (jobs.get(i).getId() == currentJobId)
         		{
         			currentJob = jobs.get(i);
-        			jobSpinner.setSelection(i);
+        			jobSpinner.setSelection(i, true);
         		}
         	}
         }
