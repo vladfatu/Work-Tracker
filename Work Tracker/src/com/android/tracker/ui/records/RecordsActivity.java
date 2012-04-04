@@ -44,7 +44,9 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 	private LinearLayout advancedLayout;
 	private Job currentJob;
 	private Spinner jobSpinner;
+//	private String currentPeriod;
 	ArrayList<Job> jobs;
+	ArrayList<String> periods;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 		list = (ListView) findViewById(R.id.list);
 		records = new ArrayList<Record>();
 		periodSpinner = (Spinner) findViewById(R.id.periodSpinner);
+		//periodSpinner.setOnItemSelectedListener(this);
 		advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
 		jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
     	jobSpinner.setOnItemSelectedListener(this);
@@ -128,6 +131,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 		super.onResume();
 		
 		updateSpinner();
+		//updateSpinner2();
 		
 		if(Utils.getBooleanFromPrefs(this, Constants.RECORDS_ADVANCED, false))
 		{
@@ -224,7 +228,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 			adapter.add(job.getName());
 		}
 		jobSpinner.setAdapter(adapter);
-		long currentJobId = Utils.getLongFromPrefs(this, Constants.JOB_ID_PREF, -1);
+		long currentJobId = Utils.getLongFromPrefs(this, Constants.JOB_ID_PREF_ENTRIES, -1);
 		if (currentJobId != -1)
 		{
 			for (int i = 0; i < jobs.size(); i++)
@@ -238,10 +242,44 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 		}
 	}
 	
+/*	private void updateSpinner2()
+	{
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
+		periods.add("Today");
+		periods.add("This week");
+		periods.add("This month");
+		int i;
+		for( i=0; i<3; i++)
+		{
+		adapter.add(periods.get(i));
+		}
+		
+		
+		periodSpinner.setAdapter(adapter);
+		String currentPeriodString = Utils.getStringFromPrefs(this, Constants.CURRENT_PERIOD_PREF, "NULL");
+		if(!currentPeriodString.equals("NULL"))
+		{
+			for( i=0; i<3; i++);
+			{
+				if(periods.get(i).equals(currentPeriodString));
+				{
+					currentPeriod = periods.get(i);
+					periodSpinner.setSelection(i);
+				}
+		
+		
+			}
+		}
+	}
+*/	
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3)
 	{
 		currentJob = jobs.get(position);
-		Utils.setLongToPrefs(this, Constants.JOB_ID_PREF, currentJob.getId());
+		Utils.setLongToPrefs(this, Constants.JOB_ID_PREF_ENTRIES, currentJob.getId());
+	//	currentPeriod = periods.get(position);
+		//Utils.setStringToPrefs(this, Constants.CURRENT_PERIOD_PREF, currentPeriod);
 		
 	}
 
