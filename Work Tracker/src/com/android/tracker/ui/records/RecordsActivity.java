@@ -16,12 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.android.tracker.R;
 import com.android.tracker.database.DatabaseController;
+import com.android.tracker.database.Job;
 import com.android.tracker.database.Record;
 
 
@@ -29,7 +32,7 @@ import com.android.tracker.database.Record;
  * @author vlad
  *
  */
-public class RecordsActivity extends Activity implements OnItemClickListener{
+public class RecordsActivity extends Activity implements OnItemClickListener, OnItemSelectedListener {
 	
 	private ListView list;
 	private RecordsAdapter adapter;
@@ -39,6 +42,9 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 	private DatabaseController dbController;
 	private Spinner periodSpinner;
 	private LinearLayout advancedLayout;
+	private Job currentJob;
+	private Spinner jobSpinner;
+	ArrayList<Job> jobs;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,8 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 		records = new ArrayList<Record>();
 		periodSpinner = (Spinner) findViewById(R.id.periodSpinner);
 		advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
+		jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
+    	jobSpinner.setOnItemSelectedListener(this);
 		
 		adapter = new RecordsAdapter(this, R.layout.record_row, records);
 		list.setAdapter(adapter);
@@ -118,6 +126,9 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 	public void onResume()
 	{
 		super.onResume();
+		
+		updateSpinner();
+		
 		if(Utils.getBooleanFromPrefs(this, Constants.RECORDS_ADVANCED, false))
 		{
 			periodSpinner.setVisibility(View.GONE);
@@ -199,5 +210,44 @@ public class RecordsActivity extends Activity implements OnItemClickListener{
 		}
 		return super.onPrepareOptionsMenu(menu);
 	
+	}
+//
+
+	private void updateSpinner()
+	{
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    
+		jobs = dbController.getJobs();
+		for(Job job:jobs)
+		{
+			adapter.add(job.getName());
+		}
+		jobSpinner.setAdapter(adapter);
+		long currentJobId = Utils.getLongFromPrefs(this, Constants.JOB_ID_PREF, -1);
+		if (currentJobId != -1)
+		{
+			for (int i = 0; i < jobs.size(); i++)
+			{
+				if (jobs.get(i).getId() == currentJobId)
+				{
+					currentJob = jobs.get(i);
+					jobSpinner.setSelection(i);
+				}
+			}
+		}
+	}
+	
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3)
+	{
+		currentJob = jobs.get(position);
+		Utils.setLongToPrefs(this, Constants.JOB_ID_PREF, currentJob.getId());
+		
+	}
+
+	public void onNothingSelected(AdapterView<?> arg0)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
