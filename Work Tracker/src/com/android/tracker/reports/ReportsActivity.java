@@ -37,6 +37,7 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 	private LinearLayout advancedLayout;
 	private DatabaseController dbController;
 	private Job currentJobReports;
+	int currentType;
 	private Spinner jobSpinner;
 	ArrayList<Job> jobs;
 	
@@ -64,6 +65,7 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
     jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
     jobSpinner.setOnItemSelectedListener(this);
     typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
+    typeSpinner.setOnItemSelectedListener(this);
     advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
     
 	}
@@ -99,6 +101,8 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
         typeSpinner.setAdapter(adapter);
+        currentType = Utils.getIntFromPrefs(this, Constants.TYPE_REPORTS, 0);
+        typeSpinner.setSelection(currentType, true);
 
 	}
 	
@@ -196,8 +200,17 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3)
 	{
-		currentJobReports = jobs.get(position);
-		Utils.setLongToPrefs(this, Constants.JOB_ID_PREF_REPORTS, currentJobReports.getId());
+		switch (arg0.getId()) 
+		{
+		case R.id.jobSpinner:
+			currentJobReports = jobs.get(position);
+			Utils.setLongToPrefs(this, Constants.JOB_ID_PREF_REPORTS, currentJobReports.getId());
+			break;
+		case R.id.typeSpinner:
+			currentType = position;
+			Utils.setIntToPrefs(this, Constants.TYPE_REPORTS, position);
+			break;
+		}
 		
 	}
 
