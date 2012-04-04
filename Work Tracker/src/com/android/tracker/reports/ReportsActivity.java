@@ -1,9 +1,13 @@
 package com.android.tracker.reports;
 
+import java.util.ArrayList;
+
 import utils.Constants;
 import utils.Utils;
 
 import com.android.tracker.R;
+import com.android.tracker.database.DatabaseController;
+import com.android.tracker.database.Job;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
@@ -15,18 +19,26 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 /**
  * @author vlad
  *
  */
-public class ReportsActivity extends Activity{
+public class ReportsActivity  extends Activity implements OnItemSelectedListener {
 	
 	private Spinner typeSpinner;
 	private LinearLayout advancedLayout;
+	private DatabaseController dbController;
+	private Job currentJobReports;
+	private Spinner jobSpinner;
+	ArrayList<Job> jobs;
 	
 	AdView adView;
 	
@@ -47,14 +59,44 @@ public class ReportsActivity extends Activity{
     // Initiate a generic request to load it with an ad
     adView.loadAd(new AdRequest());
 	
+    dbController = new DatabaseController(this);
+    
+    jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
+    jobSpinner.setOnItemSelectedListener(this);
     typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
     advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
     
 	}
 	
+    private void updateSpinner()
+    {
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        jobs = dbController.getJobs();
+        for(Job job:jobs)
+        {
+        	adapter.add(job.getName());
+        }
+        jobSpinner.setAdapter(adapter);
+        long currentJobId = Utils.getLongFromPrefs(this, Constants.JOB_ID_PREF_REPORTS, -1);
+        if (currentJobId != -1)
+        {
+        	for (int i = 0; i < jobs.size(); i++)
+        	{
+        		if (jobs.get(i).getId() == currentJobId)
+        		{
+        			currentJobReports = jobs.get(i);
+        			jobSpinner.setSelection(i, true);
+        		}
+        	}
+        }
+    }
+	
 	public void onResume()
 	{
 		super.onResume();
+		updateSpinner();
 		if(Utils.getBooleanFromPrefs(this, Constants.REPORTS_ADVANCED, false))
 		{
 			typeSpinner.setVisibility(View.GONE);
@@ -141,6 +183,19 @@ public class ReportsActivity extends Activity{
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3)
+	{
+		currentJobReports = jobs.get(position);
+		Utils.setLongToPrefs(this, Constants.JOB_ID_PREF_REPORTS, currentJobReports.getId());
+		
+	}
+
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }
