@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 /**
  * @author vlad
@@ -24,7 +25,7 @@ import android.widget.LinearLayout;
  */
 public class ReportsActivity extends Activity{
 	
-	private LinearLayout normalLayout;
+	private Spinner typeSpinner;
 	private LinearLayout advancedLayout;
 	
 	AdView adView;
@@ -46,7 +47,7 @@ public class ReportsActivity extends Activity{
     // Initiate a generic request to load it with an ad
     adView.loadAd(new AdRequest());
 	
-    normalLayout = (LinearLayout) findViewById(R.id.normalLayout);
+    typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
     advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
     
 	}
@@ -56,12 +57,12 @@ public class ReportsActivity extends Activity{
 		super.onResume();
 		if(Utils.getBooleanFromPrefs(this, Constants.REPORTS_ADVANCED, false))
 		{
-			normalLayout.setVisibility(View.GONE);
+			typeSpinner.setVisibility(View.GONE);
 			advancedLayout.setVisibility(View.VISIBLE);
 		}
 		else 
 		{
-			normalLayout.setVisibility(View.VISIBLE);
+			typeSpinner.setVisibility(View.VISIBLE);
 			advancedLayout.setVisibility(View.GONE);
 		}
 		
@@ -89,7 +90,7 @@ public class ReportsActivity extends Activity{
 	
 	private void normalSearchClick() 
 	{
-		normalLayout.setVisibility(View.VISIBLE);
+		typeSpinner.setVisibility(View.VISIBLE);
 		advancedLayout.setVisibility(View.GONE);
 		Utils.setBooleanToPrefs(this, Constants.REPORTS_ADVANCED, false);
 		
@@ -99,7 +100,7 @@ public class ReportsActivity extends Activity{
 
 	private void advancedSearchClick() 
 	{
-		normalLayout.setVisibility(View.GONE);
+		typeSpinner.setVisibility(View.GONE);
 		advancedLayout.setVisibility(View.VISIBLE);
 		Utils.setBooleanToPrefs(this, Constants.REPORTS_ADVANCED, true);
 		
