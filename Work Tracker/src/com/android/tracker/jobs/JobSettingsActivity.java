@@ -38,6 +38,7 @@ public class JobSettingsActivity extends Activity implements OnClickListener{
 	{
 		// TODO Auto-generated method stub
 		super.onPause();
+		dbController.close();
 	}
 
 	@Override
@@ -45,6 +46,7 @@ public class JobSettingsActivity extends Activity implements OnClickListener{
 	{
 		// TODO Auto-generated method stub
 		super.onResume();
+		dbController.open();
 	}
 
 	public void onClick(View v)

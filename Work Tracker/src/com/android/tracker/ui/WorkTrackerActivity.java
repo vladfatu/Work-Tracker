@@ -9,7 +9,6 @@ import utils.Utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -176,6 +175,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
     @Override
 	protected void onResume() {
 		super.onResume();
+		dbController.open();
 		updateSpinner();
 		updateUI();
 		updatePunchInInfoLayout();
@@ -184,6 +184,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
     protected void onPause()
     {
     	super.onPause();
+    	dbController.close();
     	Utils.setStringToPrefs(this, Constants.DESCRIPTION, descriptionEditText.getText().toString());
     }
     
@@ -232,8 +233,9 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 			if(punchedIn==false)
 			{
 				record.setDate(c.getTime());
-				record.setType(1);
+				record.setType(Record.PUNCH_IN);
 				record.setDescription(descriptionEditText.getText().toString());
+				record.setJob(currentJob);
 				// ?? record.setJob(dbController.getJob(Utils.getLongFromPrefs(this, Constants.JOB_ID_PREF, -1)));
 				punchInButton.setText(R.string.punch_out);
 				punchInInfoLayout.setVisibility(View.VISIBLE);
@@ -244,6 +246,10 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 			}
 			else 
 			{
+				record.setDate(c.getTime());
+				record.setType(Record.PUNCH_OUT);
+				record.setDescription(descriptionEditText.getText().toString());
+				record.setJob(currentJob);
 				punchInButton.setText(R.string.punch_in);
 				punchInInfoLayout.setVisibility(View.INVISIBLE);
 				jobSpinner.setEnabled(true);
@@ -251,6 +257,9 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, false);
 				
 			}
+			//TODO
+			//asta e doar de test
+			dbController.addRecord(record);
 		}
 		
 		if(v == jobSettingsButton)

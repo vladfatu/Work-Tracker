@@ -1,11 +1,9 @@
 package com.android.tracker.ui.records;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import utils.Constants;
 import utils.Utils;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -24,8 +22,8 @@ import android.widget.Spinner;
 
 import com.android.tracker.R;
 import com.android.tracker.database.DatabaseController;
+import com.android.tracker.database.Entry;
 import com.android.tracker.database.Job;
-import com.android.tracker.database.Record;
 
 
 /**
@@ -35,8 +33,8 @@ import com.android.tracker.database.Record;
 public class RecordsActivity extends Activity implements OnItemClickListener, OnItemSelectedListener {
 	
 	private ListView list;
-	private RecordsAdapter adapter;
-	private ArrayList<Record> records;
+	private EntriesAdapter adapter;
+	private ArrayList<Entry> entries;
 	private ProgressDialog m_ProgressDialog = null; 
 	private Runnable viewOrders;
 	private DatabaseController dbController;
@@ -55,23 +53,17 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 		setContentView(R.layout.records_layout);
 		
 		list = (ListView) findViewById(R.id.list);
-		records = new ArrayList<Record>();
+		entries = new ArrayList<Entry>();
 		periodSpinner = (Spinner) findViewById(R.id.periodSpinner);
 		//periodSpinner.setOnItemSelectedListener(this);
 		advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
 		jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
     	jobSpinner.setOnItemSelectedListener(this);
 		
-		adapter = new RecordsAdapter(this, R.layout.record_row, records);
+		adapter = new EntriesAdapter(this, R.layout.entry_row, entries);
 		list.setAdapter(adapter);
 		
 		dbController = new DatabaseController(this);
-		
-		// asta e doar de test, adaugarea record-rurilor va trebui facuta din ecranul principal, nu de aici
-		Calendar c = Calendar.getInstance();
-		Record record = new Record(c.getTime());
-		if (dbController.getJobs().get(0) != null) record.setJob(dbController.getJobs().get(0));
-		dbController.addRecord(record);
 		
 		viewOrders = new Runnable(){
             
@@ -79,17 +71,22 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
                 getRecords();
             }
         };
-        Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
-        thread.start();
-        m_ProgressDialog = ProgressDialog.show(this,    
-              "Please wait...", "Retrieving data ...", true);
+     
+	}
+	
+	private void updateRecords()
+	{
+		   Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
+	        thread.start();
+	        m_ProgressDialog = ProgressDialog.show(this,    
+	              "Please wait...", "Retrieving data ...", true);
 	}
 	
 	private Runnable returnRes = new Runnable() {
 
         public void run() {
         	
-            if(records != null && records.size() > 0){
+            if(entries != null && entries.size() > 0){
                 adapter.notifyDataSetChanged();
               
             }
@@ -100,15 +97,8 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 	private void getRecords()
 	{
 		// Aici vor trebui verificate filtrele din activitate pentru a stii ce sa cerem e la baza de date
-		records.addAll(dbController.getAllRecords());
+		entries.addAll(Utils.getEntriesFromRecords(dbController.getAllRecords()));
 		
-		try
-		{
-			Thread.sleep(1000);
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
 		runOnUiThread(returnRes);
 	}
 
@@ -129,8 +119,9 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 	public void onResume()
 	{
 		super.onResume();
-		
+		dbController.open();
 		updateSpinner();
+		updateRecords();
 		//updateSpinner2();
 		
 		if(Utils.getBooleanFromPrefs(this, Constants.RECORDS_ADVANCED, false))
@@ -143,6 +134,12 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 			periodSpinner.setVisibility(View.VISIBLE);
 			advancedLayout.setVisibility(View.GONE);	
 		}
+	}
+	
+	public void onPause()
+	{
+		super.onPause();
+		dbController.close();
 	}
 	
 	private void sendEmail()
@@ -219,15 +216,15 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 
 	private void updateSpinner()
 	{
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     
 		jobs = dbController.getJobs();
 		for(Job job:jobs)
 		{
-			adapter.add(job.getName());
+			spinnerAdapter.add(job.getName());
 		}
-		jobSpinner.setAdapter(adapter);
+		jobSpinner.setAdapter(spinnerAdapter);
 		long currentJobId = Utils.getLongFromPrefs(this, Constants.JOB_ID_PREF_ENTRIES, -1);
 		if (currentJobId != -1)
 		{
@@ -236,7 +233,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 				if (jobs.get(i).getId() == currentJobId)
 				{
 					currentJob = jobs.get(i);
-					jobSpinner.setSelection(i);
+					jobSpinner.setSelection(i, true);
 				}
 			}
 		}

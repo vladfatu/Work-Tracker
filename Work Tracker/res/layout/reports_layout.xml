@@ -7,31 +7,32 @@
 
     <LinearLayout
         android:id="@+id/mainLayout1"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" android:padding="10dip">
-
+
         <LinearLayout
             android:id="@+id/normalLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
 
             <Spinner
                 android:id="@+id/jobSpinner"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <Spinner
                 android:id="@+id/typeSpinner"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/advancedLayout"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:visibility="gone" >
 

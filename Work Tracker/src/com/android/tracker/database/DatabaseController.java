@@ -63,26 +63,20 @@ public class DatabaseController implements DatabaseControllerInterface {
 	}
 
 	// ---opens the database---
-	private DatabaseController open() throws SQLException
+	public DatabaseController open() throws SQLException
 	{
 		db = DBHelper.getWritableDatabase();
 		return this; 
 	}
 
 	// ---closes the database---
-	private void close()
+	public void close()
 	{
 		DBHelper.close();
 	}
 
 	public void addRecord(Record record)
 	{
-		Boolean opened = true;
-		if(db == null || !db.isOpen()) 
-		{
-			open(); 
-			opened = false;
-		}
 		
  
 		ContentValues tempValues = new ContentValues();
@@ -92,13 +86,13 @@ public class DatabaseController implements DatabaseControllerInterface {
 		tempValues.put(RECORD_DESCRIPTION, record.getDescription());
 		record.setId(db.insert(RECORDS_TABLE, null, tempValues));
 		
-		if(!opened) close();
+	
 
 	}
 
 	public void updateRecord(Record record)
 	{
-		open();
+		
 		 
 		ContentValues tempValues = new ContentValues();
 		tempValues.put(JOBS_ID, 0);
@@ -108,22 +102,19 @@ public class DatabaseController implements DatabaseControllerInterface {
 		db.update(RECORDS_TABLE, tempValues, KEY_ROWID+"=?", new String[] {
 				Long.toString(record.getId())});
 		
-		close();
+		
 	}
 
 	public void addRecords(ArrayList<Record> records)
 	{
-		open();
 		
 		for(int i=0; i<records.size(); i++)
 			addRecord(records.get(i));
-		close();
 		
 	}
 	
 	public ArrayList<Record> getAllRecords()
 	{
-		open();
 		Cursor cursor = db.query(RECORDS_TABLE, new String[] {
         		KEY_ROWID, 
         		JOBS_ID,
@@ -160,14 +151,12 @@ public class DatabaseController implements DatabaseControllerInterface {
 	        } while (cursor.moveToNext());
 	    }
 		
-		close();
 		
 		return records;
 	}
 
 	public ArrayList<Record> getRecords(Date startDate, Date endDate, Job job)
 	{
-		open();
 		Cursor cursor = db.query(RECORDS_TABLE, new String[] {
         		KEY_ROWID, 
         		JOBS_ID,
@@ -218,7 +207,6 @@ public class DatabaseController implements DatabaseControllerInterface {
 	        } while (cursor.moveToNext());
 	    }
 		
-		close();
 		
 		return records;
 		
@@ -226,60 +214,39 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public void deleteRecords(Date startDate, Date endDate, Job job)
 	{
-		open();
 		deleteRecords(getRecords(startDate, endDate, job));
-		close();
 	}
 
 	public void deleteRecords(ArrayList<Record> records)
 	{
-		open();
 		
 		for(int i=0; i<records.size(); i++)
 			deleteRecord(records.get(i));
-		close();
 		
 	}
 
 	public void deleteRecord(Record record)
 	{
-		Boolean opened = true;
-		if(db == null || !db.isOpen()) 
-		{
-			open(); 
-			opened = false;
-		}
 		
 		db.delete(RECORDS_TABLE, KEY_ROWID+"=?", new String [] {String.valueOf(record.getId())});
-		if(!opened) close();
 	}
 
 	public void deleteAllRecords()
 	{
-		open();
 		deleteRecords(getAllRecords());
-		close();
 	}
 
 	public void addJob(Job job)
 	{
-		Boolean opened = true;
-		if(db == null || !db.isOpen()) 
-		{
-			open(); 
-			opened = false;
-		}
 		ContentValues tempValues = new ContentValues();
 		tempValues.put(JOB_NAME, job.getName());
 		tempValues.put(JOB_PRICE_PER_HOUR, job.getPricePerHour());
 		job.setId(db.insert(JOBS_TABLE, null, tempValues));
-		if(!opened) close();
 		
 	}
 
 	public void updateJob(Job job)
 	{
-		open();
 		 
 		ContentValues tempValues = new ContentValues();
 		tempValues.put(JOB_NAME, job.getName());
@@ -287,13 +254,11 @@ public class DatabaseController implements DatabaseControllerInterface {
 		db.update(JOBS_TABLE, tempValues, KEY_ROWID+"=?", new String[] {
 				Long.toString(job.getId())});
 		
-		close();
 		
 	}
 
 	public ArrayList<Job> getJobs()
 	{
-		open();
 		Cursor cursor = db.query(JOBS_TABLE, new String[] {
         		KEY_ROWID, 
         		JOB_NAME,
@@ -317,14 +282,12 @@ public class DatabaseController implements DatabaseControllerInterface {
 	        } while (cursor.moveToNext());
 	    }
 		
-		close();
 		return jobs;
 	}
 	
 	private Job getJobForId(long id)
 	{
 		Job job = new Job();
-		open();
 		Cursor cursor = db.query(JOBS_TABLE, new String[] {
 		        KEY_ROWID, 
 		        JOB_NAME,
@@ -343,54 +306,39 @@ public class DatabaseController implements DatabaseControllerInterface {
 		        job.setPricePerHour(cursor.getInt(2));
 		    }
 
-		close();
 		return job;
 	}
 
 	public void deleteJob(Job job)
 	{
-		Boolean opened = true;
-		if(db == null || !db.isOpen()) 
-		{
-			open(); 
-			opened = false;
-		}
 		
 		db.delete(JOBS_TABLE, KEY_ROWID+"=?", new String [] {String.valueOf(job.getId())});
-		if(!opened) close();
 	}
 
 	public void deleteJobs(ArrayList<Job> jobs)
  {
-		open();
 
 		for (int i = 0; i < jobs.size(); i++)
 			deleteJob(jobs.get(i));
-		close();
 
 	}
 
 	public void deleteAllJobs()
 	{
-		open();
 		deleteJobs(getJobs());
-		close();
 	}
 
 	public void addVacationDay(VacationDay day)
 	{
-		open();
 		ContentValues tempValues = new ContentValues();
 		tempValues.put(JOBS_ID, 0);
 		tempValues.put(VACATION_DAY__DATE, dateFormat.format(day.getDate()));
 		day.setId(db.insert(VACATION_DAYS_TABLE, null, tempValues));
-		close();
 		
 	}
 	
 	public void updateVacationDay(VacationDay day)
 	{
-		open();
 		 
 		ContentValues tempValues = new ContentValues();
 		tempValues.put(VACATION_DAY__DATE, dateFormat.format(day.getDate()));
@@ -398,14 +346,12 @@ public class DatabaseController implements DatabaseControllerInterface {
 		db.update(VACATION_DAYS_TABLE, tempValues, KEY_ROWID+"=?", new String[] {
 				Long.toString(day.getId())});
 		
-		close();
 		
 		
 	}
 
 	public ArrayList<VacationDay> getVacationDaysForJob(Job job)
 	{
-		open();
 		Cursor cursor = db.query(VACATION_DAYS_TABLE, new String[] { KEY_ROWID,
 				JOBS_ID, VACATION_DAY__DATE }, null, null, null, null, null);
 
@@ -431,13 +377,11 @@ public class DatabaseController implements DatabaseControllerInterface {
 			} while (cursor.moveToNext());
 		}
 
-		close();
 		return vdays;
 	}
 
 	public ArrayList<VacationDay> getVacationDaysForDates(Date startDate, Date endDate)
 	{
-		open();
 		Cursor cursor = db.query(VACATION_DAYS_TABLE, new String[] {
         		KEY_ROWID, 
         		JOBS_ID,
@@ -482,7 +426,6 @@ public class DatabaseController implements DatabaseControllerInterface {
 	        } while (cursor.moveToNext());
 	    }
 		
-		close();
 		
 		return vdays;
 		
@@ -490,7 +433,6 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	public ArrayList<VacationDay> getVacationDaysForJobAndDates(Job job, Date startDate, Date endDate)
 	{
-		open();
 		Cursor cursor = db.query(VACATION_DAYS_TABLE, new String[] {
         		KEY_ROWID, 
         		JOBS_ID,
@@ -535,32 +477,26 @@ public class DatabaseController implements DatabaseControllerInterface {
 	        } while (cursor.moveToNext());
 	    }
 		
-		close();
 		
 		return vdays;
 		
 	}
 	public void deleteVacationDay(VacationDay day)
 	{
-		open();
 		db.delete(VACATION_DAYS_TABLE, KEY_ROWID+"=?", new String [] {String.valueOf(day.getId())});
-		close();
 		
 	}
 
 	public void deleteVacationDays(ArrayList<VacationDay> days)
  {
-		open();
 		for (int i = 0; i < days.size(); i++)
 			deleteVacationDay(days.get(i));
-		close();
 
 	}
 
 	public void deleteAllVacationDays()
 	{
 		
-		open();
 		Cursor cursor = db.query(VACATION_DAYS_TABLE, new String[] {
         		KEY_ROWID, 
         		JOBS_ID,
@@ -579,7 +515,6 @@ public class DatabaseController implements DatabaseControllerInterface {
 	        } while (cursor.moveToNext());
 	    }
 		
-		close();
 	}
 
 }

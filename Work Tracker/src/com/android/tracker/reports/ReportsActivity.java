@@ -109,6 +109,7 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 	public void onResume()
 	{
 		super.onResume();
+		dbController.open();
 		updateJobSpinner();
 		updateTypeSpinner();
 		if(Utils.getBooleanFromPrefs(this, Constants.REPORTS_ADVANCED, false))
@@ -124,6 +125,12 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 		
 	}
 
+	public void onPause()
+	{
+		super.onPause();
+		dbController.close();
+	}
+	
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		

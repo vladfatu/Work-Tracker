@@ -103,6 +103,7 @@ public class JobsListActivity extends Activity implements OnItemClickListener, O
 	{
 		// TODO Auto-generated method stub
 		super.onPause();
+		dbController.close();
 	}
 	
 	private void updateJobs(){
@@ -123,6 +124,7 @@ public class JobsListActivity extends Activity implements OnItemClickListener, O
 	protected void onResume()
 	{
 		super.onResume();
+		dbController.open();
 		updateJobs();
 
 	}
