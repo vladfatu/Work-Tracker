@@ -129,6 +129,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 			{
 				punchInButton.setText(R.string.punch_out);
 				punchInInfoLayout.setVisibility(View.VISIBLE);
+				jobSpinner.setEnabled(false);
 				descriptionEditText.setText(Utils.getStringFromPrefs(this, Constants.DESCRIPTION, ""));
 				descriptionEditText.setSelection(descriptionEditText.length());
 			}
@@ -136,6 +137,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 			{
 				punchInButton.setText(R.string.punch_in);
 				punchInInfoLayout.setVisibility(View.INVISIBLE);
+				jobSpinner.setEnabled(true);
 			}
     	}
     }
@@ -235,6 +237,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				// ?? record.setJob(dbController.getJob(Utils.getLongFromPrefs(this, Constants.JOB_ID_PREF, -1)));
 				punchInButton.setText(R.string.punch_out);
 				punchInInfoLayout.setVisibility(View.VISIBLE);
+				jobSpinner.setEnabled(false);
 				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, true);
 				updatePunchInInfoLayout();
 				
@@ -243,6 +246,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 			{
 				punchInButton.setText(R.string.punch_in);
 				punchInInfoLayout.setVisibility(View.INVISIBLE);
+				jobSpinner.setEnabled(true);
 				descriptionEditText.setText("");
 				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, false);
 				
