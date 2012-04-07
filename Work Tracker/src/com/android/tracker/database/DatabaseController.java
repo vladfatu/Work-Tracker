@@ -212,6 +212,50 @@ public class DatabaseController implements DatabaseControllerInterface {
 		
 	}
 
+	public ArrayList<Record> getRecords(Job job)
+	{
+		Cursor cursor = db.query(RECORDS_TABLE, new String[] {
+        		KEY_ROWID, 
+        		JOBS_ID,
+        		RECORD_DATE,
+        		RECORD_TYPE,
+        		RECORD_DESCRIPTION}, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null);
+		
+		ArrayList<Record> records = new ArrayList<Record>();
+		
+		if (cursor.moveToFirst()) {
+			do {
+				if (cursor.getInt(1) == job.getId()) {
+					Record record = new Record();
+					try {
+						record.setId(cursor.getLong(0));
+						record.setJob(getJobForId(cursor.getLong(1)));
+						record.setDate(dateFormat.parse(cursor.getString(2)));
+						record.setType(cursor.getInt(3));
+						record.setDescription(cursor.getString(4));
+						records.add(record);
+					} catch (ParseException e) {
+
+						e.printStackTrace();
+					}
+				}
+				{
+				}
+
+			} while (cursor.moveToNext());
+		}
+		
+		
+		return records;
+		
+	}
+
+
 	public void deleteRecords(Date startDate, Date endDate, Job job)
 	{
 		deleteRecords(getRecords(startDate, endDate, job));
