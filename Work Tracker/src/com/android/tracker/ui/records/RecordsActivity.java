@@ -42,7 +42,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 	private LinearLayout advancedLayout;
 	private Job currentJob;
 	private Spinner jobSpinner;
-//	private String currentPeriod;
+	private int currentPeriod;
 	ArrayList<Job> jobs;
 	ArrayList<String> periods;
 	
@@ -56,7 +56,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 		list = (ListView) findViewById(R.id.list);
 		entries = new ArrayList<Entry>();
 		periodSpinner = (Spinner) findViewById(R.id.periodSpinner);
-		//periodSpinner.setOnItemSelectedListener(this);
+		periodSpinner.setOnItemSelectedListener(this);
 		advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
 		jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
     	jobSpinner.setOnItemSelectedListener(this);
@@ -124,7 +124,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 		updateSpinner();
 		updateRecords();
 		getRecords();
-		//updateSpinner2();
+		updateSpinner2();
 		
 		if(Utils.getBooleanFromPrefs(this, Constants.RECORDS_ADVANCED, false))
 		{
@@ -241,45 +241,30 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 		}
 	}
 	
-/*	private void updateSpinner2()
+	private void updateSpinner2()
 	{
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		
-		periods.add("Today");
-		periods.add("This week");
-		periods.add("This month");
-		int i;
-		for( i=0; i<3; i++)
-		{
-		adapter.add(periods.get(i));
-		}
-		
-		
-		periodSpinner.setAdapter(adapter);
-		String currentPeriodString = Utils.getStringFromPrefs(this, Constants.CURRENT_PERIOD_PREF, "NULL");
-		if(!currentPeriodString.equals("NULL"))
-		{
-			for( i=0; i<3; i++);
-			{
-				if(periods.get(i).equals(currentPeriodString));
-				{
-					currentPeriod = periods.get(i);
-					periodSpinner.setSelection(i);
-				}
-		
-		
-			}
-		}
+		ArrayAdapter<CharSequence> spinnerAdapter2 = ArrayAdapter.createFromResource(this, R.array.current_period, android.R.layout.simple_spinner_item );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        periodSpinner.setAdapter(spinnerAdapter2);
+        currentPeriod = Utils.getIntFromPrefs(this, Constants.CURRENT_PERIOD_PREF, 0);
+        periodSpinner.setSelection(currentPeriod, true);
 	}
-*/	
+	
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3)
 	{
-		currentJob = jobs.get(position);
-		Utils.setLongToPrefs(this, Constants.JOB_ID_PREF_ENTRIES, currentJob.getId());
-	//	currentPeriod = periods.get(position);
-		//Utils.setStringToPrefs(this, Constants.CURRENT_PERIOD_PREF, currentPeriod);
-		
+		switch (arg0.getId()) 
+		{
+		case R.id.jobSpinner:
+			currentJob = jobs.get(position);
+			Utils.setLongToPrefs(this, Constants.JOB_ID_PREF_ENTRIES, currentJob.getId());
+			break;
+		case R.id.periodSpinner:
+			currentPeriod = position;
+			Utils.setIntToPrefs(this, Constants.CURRENT_PERIOD_PREF, position);
+			break;
+		}
 	}
 	
 

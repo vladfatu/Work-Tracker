@@ -42,5 +42,10 @@
 		<item>Weekly</item>
 		<item>Monthly</item>
 	</string-array>
+    <string-array name="current_period">
+        <item>Today</item>
+		<item>This week</item>
+		<item>This month</item>
+    </string-array>
 
 </resources>
