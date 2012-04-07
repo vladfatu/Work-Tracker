@@ -47,7 +47,8 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 	ArrayList<String> periods;
 	
 	
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.records_layout);
@@ -68,7 +69,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 		viewOrders = new Runnable(){
             
             public void run() {
-                getRecords();
+              //  getRecords();
             }
         };
      
@@ -97,7 +98,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 	private void getRecords()
 	{
 		// Aici vor trebui verificate filtrele din activitate pentru a stii ce sa cerem e la baza de date
-		entries.addAll(Utils.getEntriesFromRecords(dbController.getAllRecords()));
+		entries.addAll(Utils.getEntriesFromRecords(dbController.getRecords(currentJob)));
 		
 		runOnUiThread(returnRes);
 	}
@@ -122,6 +123,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 		dbController.open();
 		updateSpinner();
 		updateRecords();
+		getRecords();
 		//updateSpinner2();
 		
 		if(Utils.getBooleanFromPrefs(this, Constants.RECORDS_ADVANCED, false))
@@ -279,6 +281,8 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 		//Utils.setStringToPrefs(this, Constants.CURRENT_PERIOD_PREF, currentPeriod);
 		
 	}
+	
+
 
 	public void onNothingSelected(AdapterView<?> arg0)
 	{
