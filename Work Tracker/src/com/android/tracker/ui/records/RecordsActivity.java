@@ -245,7 +245,7 @@ public class RecordsActivity extends Activity implements OnItemClickListener, On
 	{
 		
 		ArrayAdapter<CharSequence> spinnerAdapter2 = ArrayAdapter.createFromResource(this, R.array.current_period, android.R.layout.simple_spinner_item );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
         periodSpinner.setAdapter(spinnerAdapter2);
         currentPeriod = Utils.getIntFromPrefs(this, Constants.CURRENT_PERIOD_PREF, 0);
