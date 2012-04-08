@@ -141,10 +141,19 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
     	}
     }
     
-    private void updatePunchInInfoLayout()
+    private void updatePunchInInfoLayout(Record record)
     {
     	//TODO see if is not better to introduce the code of "updatePunchInInfoLayout()" in "updateUI()"
-    	workStartedAtTextView.setText("0");
+    	
+    	Calendar c = Calendar.getInstance();
+    	Date nowDate = c.getTime();
+    	Calendar h = Calendar.getInstance();
+    	h.clear();
+    	h.add(Calendar.MILLISECOND, (int)(nowDate.getTime()-record.getDate().getTime())); 
+    	workStartedAtTextView.setText(Constants.dateFormatterHHMM.format(record.getDate()));
+    	hoursWorkedTextView.setText(Constants.dateFormatterHHMM.format(h.getTime()));
+    	hoursWorkedIncomeTextView.setText(Integer.toString((int)(h.getTimeInMillis()/3600000)*currentJob.getPricePerHour()));
+    	
     }
     
     private void updateSpinner()
@@ -178,7 +187,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 		dbController.open();
 		updateSpinner();
 		updateUI();
-		updatePunchInInfoLayout();
+		//updatePunchInInfoLayout();
 	}
     
     protected void onPause()
@@ -236,12 +245,11 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				record.setType(Record.PUNCH_IN);
 				record.setDescription(descriptionEditText.getText().toString());
 				record.setJob(currentJob);
-				// ?? record.setJob(dbController.getJob(Utils.getLongFromPrefs(this, Constants.JOB_ID_PREF, -1)));
 				punchInButton.setText(R.string.punch_out);
 				punchInInfoLayout.setVisibility(View.VISIBLE);
 				jobSpinner.setEnabled(false);
 				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, true);
-				updatePunchInInfoLayout();
+				updatePunchInInfoLayout(record);
 				
 			}
 			else 
@@ -257,8 +265,6 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, false);
 				
 			}
-			//TODO
-			//asta e doar de test
 			dbController.addRecord(record);
 		}
 		
