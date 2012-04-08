@@ -266,6 +266,8 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				
 			}
 			dbController.addRecord(record);
+			//ArrayList<Record> Records = dbController.getRecords(currentJob);
+			//long id = Records.get(Records.size()-1).getId();
 		}
 		
 		if(v == jobSettingsButton)
