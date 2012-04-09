@@ -141,18 +141,31 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
     	}
     }
     
-    private void updatePunchInInfoLayout(Record record)
+    private void updatePunchInInfoLayout()
     {
     	//TODO see if is not better to introduce the code of "updatePunchInInfoLayout()" in "updateUI()"
     	
-    	Calendar c = Calendar.getInstance();
-    	Date nowDate = c.getTime();
-    	Calendar h = Calendar.getInstance();
-    	h.clear();
-    	h.add(Calendar.MILLISECOND, (int)(nowDate.getTime()-record.getDate().getTime())); 
-    	workStartedAtTextView.setText(Constants.dateFormatterHHMM.format(record.getDate()));
-    	hoursWorkedTextView.setText(Constants.dateFormatterHHMM.format(h.getTime()));
-    	hoursWorkedIncomeTextView.setText(Integer.toString((int)(h.getTimeInMillis()/3600000)*currentJob.getPricePerHour()));
+
+		Boolean punchedIn = Utils.getBooleanFromPrefs(this, Constants.PUNCH_IN_PREF, false);
+		if(punchedIn == true)
+		{
+			long l = Utils.getLongFromPrefs(this, Constants.WORK_STARTED, new Date().getTime());
+			Calendar c = Calendar.getInstance();
+			Date nowDate = c.getTime();
+			Calendar h = Calendar.getInstance();
+			h.clear();
+			h.add(Calendar.MILLISECOND, (int)(nowDate.getTime()-l));
+			workStartedAtTextView.setText(Constants.dateFormatterHHMM.format(l));
+			hoursWorkedTextView.setText(Constants.dateFormatterHHMM.format(h.getTime()));
+			hoursWorkedIncomeTextView.setText(Integer.toString((int)(h.getTimeInMillis()/3600000)*currentJob.getPricePerHour()));	
+		}
+		else
+		{
+			workStartedAtTextView.setText("");
+			hoursWorkedTextView.setText("");
+			hoursWorkedIncomeTextView.setText("");	
+		}
+
     	
     }
     
@@ -187,7 +200,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 		dbController.open();
 		updateSpinner();
 		updateUI();
-		//updatePunchInInfoLayout();
+		updatePunchInInfoLayout();
 	}
     
     protected void onPause()
@@ -237,7 +250,6 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 		{
 			Record record = new Record();
 			Calendar c = Calendar.getInstance();
-			//Job job = dbController.getJobs() ; !! function getJob(long id)?!
 			Boolean punchedIn = Utils.getBooleanFromPrefs(this, Constants.PUNCH_IN_PREF, false);
 			if(punchedIn==false)
 			{
@@ -249,7 +261,8 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				punchInInfoLayout.setVisibility(View.VISIBLE);
 				jobSpinner.setEnabled(false);
 				Utils.setBooleanToPrefs(this, Constants.PUNCH_IN_PREF, true);
-				updatePunchInInfoLayout(record);
+		    	Utils.setLongToPrefs(this, Constants.WORK_STARTED, record.getDate().getTime());
+				updatePunchInInfoLayout();
 				
 			}
 			else 
@@ -283,6 +296,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	{
 		currentJob = jobs.get(position);
 		Utils.setLongToPrefs(this, Constants.JOB_ID_PREF, currentJob.getId());
+		updateUI();
 		
 	}
 

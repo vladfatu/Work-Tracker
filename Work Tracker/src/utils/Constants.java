@@ -16,4 +16,5 @@ public class Constants {
 	public static String JOB_ID_PREF_ENTRIES = "com.android.tracker.JOB_ID_PREF_ENTRIES";
 	public static String JOB_ID_PREF_REPORTS = "com.android.tracker.JOB_ID_PREF_REPORTS";
 	public static String TYPE_REPORTS = "com.android.tracker.TYPE_REPORTS";
+	public static String WORK_STARTED = "com.android.tracker.WORK_STARTED";
 }
