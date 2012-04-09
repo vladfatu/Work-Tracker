@@ -143,9 +143,6 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
     
     private void updatePunchInInfoLayout()
     {
-    	//TODO see if is not better to introduce the code of "updatePunchInInfoLayout()" in "updateUI()"
-    	
-
 		Boolean punchedIn = Utils.getBooleanFromPrefs(this, Constants.PUNCH_IN_PREF, false);
 		if(punchedIn == true)
 		{
@@ -279,8 +276,6 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				
 			}
 			dbController.addRecord(record);
-			//ArrayList<Record> Records = dbController.getRecords(currentJob);
-			//long id = Records.get(Records.size()-1).getId();
 		}
 		
 		if(v == jobSettingsButton)
