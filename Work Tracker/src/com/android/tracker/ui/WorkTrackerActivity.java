@@ -7,6 +7,10 @@ import java.util.Date;
 import utils.Constants;
 import utils.Utils;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -43,6 +48,7 @@ import com.google.ads.AdView;
 public class WorkTrackerActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 	
 	private Button punchInButton;
+	private Button addPunchInButton;
 	private TextView todayHoursTextView;
 	private TextView todayIncomeTextView;
 	private TextView thisWeekHoursTextView;
@@ -59,6 +65,20 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 	private TextView hoursWorkedTextView;
 	private TextView hoursWorkedIncomeTextView;
 	ArrayList<Job> jobs;
+	//private Date startDate;
+	//private static final int DATE_DIALOG_ID = 0;
+	
+	
+	/*private DatePickerDialog.OnDateSetListener mDateSetListener =
+		    new DatePickerDialog.OnDateSetListener() {
+		        public void onDateSet(DatePicker view, int year, 
+		                              int monthOfYear, int dayOfMonth) {
+		        	startDate.setYear(year - 1900);
+		        	startDate.setMonth(monthOfYear);
+		        	startDate.setDate(dayOfMonth);
+		            updateDisplay();
+		        }
+		    };*/
 
 	AdView adView;
 	
@@ -97,10 +117,20 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
     	workStartedAtTextView = (TextView) findViewById(R.id.workStartedAtTextView);
     	hoursWorkedTextView = (TextView) findViewById(R.id.hoursWorkedTextView);
     	hoursWorkedIncomeTextView = (TextView) findViewById(R.id.hoursWorkedIncomeTextView);
+    	addPunchInButton = (Button) findViewById(R.id.addPunchInButton);
+    	addPunchInButton.setOnClickListener(this);
+    	
+		//Calendar c = Calendar.getInstance();
+		//startDate = c.getTime();
     	
     }
     
-    private void updateUI()
+    /*protected void updateDisplay() {
+		// TODO Auto-generated method stub
+		
+	}*/
+
+	private void updateUI()
     {
     	if (currentJob != null)
     	{
@@ -191,6 +221,36 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
         }
     }
     
+	/*protected Dialog onCreateDialog(int id) {
+		   switch (id) {
+		   case DATE_DIALOG_ID:
+			   AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			   builder.setTitle(R.string.select_date_and_time);
+			   builder.setNegativeButton("Date",new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                //this.finish();
+		           }
+		       });
+		       builder.setPositiveButton("Date",new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                //this.finish();
+		           }
+		       });
+		       builder.setNeutralButton("Date",new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                //this.finish();
+		           }
+		       })
+;
+			   AlertDialog addDialog = builder.create();
+			   return addDialog;
+		      return new DatePickerDialog(this,
+		                mDateSetListener,
+		                startDate.getYear() + 1900, startDate.getMonth(), startDate.getDate());
+		   }
+		   return null;
+		}*/
+	
     @Override
 	protected void onResume() {
 		super.onResume();
@@ -276,6 +336,12 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 				
 			}
 			dbController.addRecord(record);
+		}
+		
+		if(v == addPunchInButton)
+		{
+			startActivity(new Intent(this, AddPunchInActivity.class));
+			//showDialog(DATE_DIALOG_ID);
 		}
 		
 		if(v == jobSettingsButton)

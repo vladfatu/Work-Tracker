@@ -198,7 +198,7 @@
             android:textSize="16dip" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/addPunchInButton"
             android:layout_width="100dip"
             android:layout_height="40dip"
             android:layout_gravity="center"

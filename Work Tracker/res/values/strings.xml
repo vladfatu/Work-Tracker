@@ -47,5 +47,7 @@
 		<item>This week</item>
 		<item>This month</item>
     </string-array>
+    <string name="select_date_and_time">Select Date and Time:</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
