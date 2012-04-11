@@ -17,24 +17,15 @@
             android:text="@string/select_date_and_time"
             android:textAppearance="?android:attr/textAppearanceLarge" android:layout_gravity="center"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/button1"
+        <DatePicker
+            android:id="@+id/datePicker1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" android:layout_weight="1"/>
+            android:layout_height="wrap_content" android:layout_gravity="center"/>
 
-        <Button
-            android:id="@+id/button2"
+        <TimePicker
+            android:id="@+id/timePicker1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" android:layout_weight="1"/>
+            android:layout_height="wrap_content" android:layout_gravity="center"/>
 
     </LinearLayout>
 
@@ -48,12 +39,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical" android:layout_weight="1" android:gravity="left">
-
+
             <Button
-                android:id="@+id/Button01"
+                android:id="@+id/addButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add" android:layout_marginTop="10dip" android:layout_marginLeft="10dip"/>
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:text="@string/add" />
 
         </LinearLayout>
 
@@ -62,12 +55,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical" android:layout_weight="1" android:gravity="right">
-
+
             <Button
-                android:id="@+id/Button02"
+                android:id="@+id/cancelButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cancel" android:layout_marginTop="10dip" android:layout_marginRight="10dip"/>
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
+                android:text="@string/cancel" />
 
         </LinearLayout>
     </LinearLayout>
