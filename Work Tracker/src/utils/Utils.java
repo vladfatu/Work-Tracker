@@ -204,5 +204,22 @@ public class Utils {
 		//return Constants.dateFormatterHHMM.format(c.getTime());
 		return c;
 	}
+	
+	public static Boolean samePeriod(Date date1, Date date2, int period)
+	{
+		Calendar c1 = Calendar.getInstance();
+		c1.setTime(date1);
+		Calendar c2 = Calendar.getInstance();
+		c2.setTime(date2);
+		if (c1.get(Calendar.YEAR) != c2.get(Calendar.YEAR))
+			return false;
+		if (period == 0 && c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR))
+			return true;
+		else if (period == 1 && c1.get(Calendar.WEEK_OF_YEAR) == c2.get(Calendar.WEEK_OF_YEAR))
+			return true;
+		else if (period == 2 && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH))
+			return true;
+		return false;
+	}
 
 }

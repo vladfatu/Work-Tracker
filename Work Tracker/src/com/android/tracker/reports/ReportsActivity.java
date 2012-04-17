@@ -1,6 +1,7 @@
 package com.android.tracker.reports;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import utils.Constants;
 import utils.Utils;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 
 import com.android.tracker.R;
 import com.android.tracker.database.DatabaseController;
+import com.android.tracker.database.Entry;
 import com.android.tracker.database.Job;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
@@ -78,11 +80,44 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 	
 	private void updateReport()
 	{
-		for (int i=0 ; i<30 ; i++)
-			tl.addView(getNewReportRow("date", "date", 0, 0, ((i % 2) == 0)), new TableLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+		tl.removeAllViewsInLayout();
+		ArrayList<Entry> entries = Utils.getEntriesFromRecords(dbController.getAllRecords());
+		Calendar tempHours = Calendar.getInstance();
+		tempHours.clear();
+		for (int i=0 ; i<entries.size() ; i++)
+		{
+			if (i < entries.size()-1 && 
+				Utils.samePeriod(entries.get(i).getPunchInRecord().getDate(), 
+					entries.get(i+1).getPunchInRecord().getDate(), currentType))
+			{
+				if (entries.get(i).getPunchOutRecord() != null) 
+				{
+					tempHours.add(Calendar.MILLISECOND, 
+						(int) (entries.get(i).getPunchOutRecord().getDate().getTime() - 
+							   entries.get(i).getPunchInRecord().getDate().getTime()));
+				}
+			}
+			else
+			{
+				if (entries.get(i).getPunchOutRecord() != null) 
+				{
+					tempHours.add(Calendar.MILLISECOND, 
+							(int) (entries.get(i).getPunchOutRecord().getDate().getTime() - 
+								   entries.get(i).getPunchInRecord().getDate().getTime()));
+				}
+				tl.addView(getNewReportRow(Constants.dateFormatterDMY.format(entries.get(i).getPunchInRecord().getDate()), 
+										   Constants.dateFormatterDMY.format(entries.get(i).getPunchInRecord().getDate()), 
+										   Constants.dateFormatterHHMM.format(tempHours.getTime()), 
+										   (int)(tempHours.getTimeInMillis()/3600000)*currentJobReports.getPricePerHour(), 
+										   ((i % 2) == 0)), 
+								new TableLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+				
+				tempHours.clear();
+			}
+		}
 	}
 	
-	private TableRow getNewReportRow(String startDate, String endDate, int hours, int income, boolean white)
+	private TableRow getNewReportRow(String startDate, String endDate, String hours, int income, boolean white)
 	{
 		TableRow tr = new TableRow(this);
 		tr.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
@@ -105,7 +140,7 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 		tr.addView(endView);
 		
 		TextView hoursView = new TextView(this);
-		hoursView.setText(Integer.toString(hours));
+		hoursView.setText(hours);
 		hoursView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1f));
 		hoursView.setGravity(Gravity.CENTER);
 		hoursView.setTextColor(Color.BLACK);
@@ -154,7 +189,7 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
         typeSpinner.setAdapter(adapter);
         currentType = Utils.getIntFromPrefs(this, Constants.TYPE_REPORTS, 0);
         typeSpinner.setSelection(currentType, true);
-
+        
 	}
 	
 	public void onResume()
@@ -173,7 +208,6 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 			typeSpinner.setVisibility(View.VISIBLE);
 			advancedLayout.setVisibility(View.GONE);
 		}
-		updateReport();
 		
 	}
 
@@ -267,6 +301,7 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 			break;
 		case R.id.typeSpinner:
 			currentType = position;
+			updateReport();
 			Utils.setIntToPrefs(this, Constants.TYPE_REPORTS, position);
 			break;
 		}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="today">Azi:</string>
+    <string name="work_started_at">Lucru inceput la:</string>
+    <string-array name="type_reports">
+		<item>Zilnic</item>
+		<item>Saptamanal</item>
+		<item>Lunar</item>
+	</string-array>
+    <string-array name="current_period">
+        <item>Azi</item>
+		<item>Saptamana curenta</item>
+		<item>Luna curenta</item>
+    </string-array>
+
+</resources>

@@ -49,5 +49,8 @@
     </string-array>
     <string name="select_date_and_time">Select Date and Time:</string>
     <string name="cancel">Cancel</string>
+    <string name="end_date">End Date</string>
+    <string name="hours">Hours</string>
+    <string name="income_reports">Income</string>
 
 </resources>
