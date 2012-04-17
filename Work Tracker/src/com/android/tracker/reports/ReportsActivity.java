@@ -4,6 +4,24 @@ import java.util.ArrayList;
 
 import utils.Constants;
 import utils.Utils;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TableRow.LayoutParams;
+import android.widget.TextView;
 
 import com.android.tracker.R;
 import com.android.tracker.database.DatabaseController;
@@ -11,21 +29,6 @@ import com.android.tracker.database.Job;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 /**
  * @author vlad
@@ -37,37 +40,85 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 	private LinearLayout advancedLayout;
 	private DatabaseController dbController;
 	private Job currentJobReports;
-	int currentType;
+	private int currentType;
 	private Spinner jobSpinner;
-	ArrayList<Job> jobs;
+	private ArrayList<Job> jobs;
+	private TableLayout tl;
 	
 	AdView adView;
 	
 	public void onCreate(Bundle savedInstanceState) 
 	{
 
-	super.onCreate(savedInstanceState);
-	
-	setContentView(R.layout.reports_layout);
-	
-    adView = new AdView(this, AdSize.BANNER, "a14de914472599e"); 
-    
-    LinearLayout layout = (LinearLayout)findViewById(R.id.mainLayout);
+		super.onCreate(savedInstanceState);
 
-    // Add the adView to it
-    layout.addView(adView);
+		setContentView(R.layout.reports_layout);
 
-    // Initiate a generic request to load it with an ad
-    adView.loadAd(new AdRequest());
+		adView = new AdView(this, AdSize.BANNER, "a14de914472599e");
+
+		LinearLayout layout = (LinearLayout) findViewById(R.id.mainLayout);
+
+		// Add the adView to it
+		layout.addView(adView);
+
+		// Initiate a generic request to load it with an ad
+		adView.loadAd(new AdRequest());
+
+		dbController = new DatabaseController(this);
+
+		jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
+		jobSpinner.setOnItemSelectedListener(this);
+		typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
+		typeSpinner.setOnItemSelectedListener(this);
+		advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
+
+		tl = (TableLayout) findViewById(R.id.reportLayout);
+		
+	}
 	
-    dbController = new DatabaseController(this);
-    
-    jobSpinner = (Spinner) findViewById(R.id.jobSpinner);
-    jobSpinner.setOnItemSelectedListener(this);
-    typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
-    typeSpinner.setOnItemSelectedListener(this);
-    advancedLayout = (LinearLayout) findViewById(R.id.advancedLayout);
-    
+	private void updateReport()
+	{
+		for (int i=0 ; i<30 ; i++)
+			tl.addView(getNewReportRow("date", "date", 0, 0, ((i % 2) == 0)), new TableLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+	}
+	
+	private TableRow getNewReportRow(String startDate, String endDate, int hours, int income, boolean white)
+	{
+		TableRow tr = new TableRow(this);
+		tr.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+		tr.setPadding(0, 10, 0, 10);
+		if (white) tr.setBackgroundColor(Color.WHITE);
+		else tr.setBackgroundColor(Color.LTGRAY);
+		
+		TextView startView = new TextView(this);
+		startView.setText(startDate);
+		startView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1f));
+		startView.setGravity(Gravity.CENTER);
+		startView.setTextColor(Color.BLACK);
+		tr.addView(startView);
+		
+		TextView endView = new TextView(this);
+		endView.setText(endDate);
+		endView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1f));
+		endView.setGravity(Gravity.CENTER);
+		endView.setTextColor(Color.BLACK);
+		tr.addView(endView);
+		
+		TextView hoursView = new TextView(this);
+		hoursView.setText(Integer.toString(hours));
+		hoursView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1f));
+		hoursView.setGravity(Gravity.CENTER);
+		hoursView.setTextColor(Color.BLACK);
+		tr.addView(hoursView);
+		
+		TextView incomeView = new TextView(this);
+		incomeView.setText(Integer.toString(income));
+		incomeView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1f));
+		incomeView.setGravity(Gravity.CENTER);
+		incomeView.setTextColor(Color.BLACK);
+		tr.addView(incomeView);
+		
+		return tr;
 	}
 	
     private void updateJobSpinner()
@@ -122,6 +173,7 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 			typeSpinner.setVisibility(View.VISIBLE);
 			advancedLayout.setVisibility(View.GONE);
 		}
+		updateReport();
 		
 	}
 

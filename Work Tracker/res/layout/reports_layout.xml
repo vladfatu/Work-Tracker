@@ -3,14 +3,15 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical" >
+
     <LinearLayout
         android:id="@+id/mainLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" android:padding="10dip">
-
+        android:orientation="vertical"
+        android:padding="10dip" >
+
         <LinearLayout
             android:id="@+id/normalLayout"
             android:layout_width="fill_parent"
@@ -50,6 +51,18 @@
                 android:layout_weight="1"
                 android:text="Button" />
         </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_margin="5dip">
+
+            <TableLayout
+                android:id="@+id/reportLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:background="@layout/report_background">
+            </TableLayout>
+        </ScrollView>
     </LinearLayout>
 
 </LinearLayout>

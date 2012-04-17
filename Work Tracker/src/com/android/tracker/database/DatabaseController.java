@@ -150,6 +150,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	        } while (cursor.moveToNext());
 	    }
+		cursor.close();
 		
 		
 		return records;
@@ -206,7 +207,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 	        } while (cursor.moveToNext());
 	    }
-		
+		cursor.close();
 		
 		return records;
 		
@@ -249,7 +250,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 
 			} while (cursor.moveToNext());
 		}
-		
+		cursor.close();
 		
 		return records;
 		
@@ -325,6 +326,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 		        jobs.add(job);
 	        } while (cursor.moveToNext());
 	    }
+		cursor.close();
 		
 		return jobs;
 	}
@@ -349,6 +351,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 		        job.setName(cursor.getString(1));
 		        job.setPricePerHour(cursor.getInt(2));
 		    }
+		cursor.close();
 
 		return job;
 	}
@@ -420,6 +423,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 				}
 			} while (cursor.moveToNext());
 		}
+		cursor.close();
 
 		return vdays;
 	}
@@ -470,6 +474,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 	        } while (cursor.moveToNext());
 	    }
 		
+		cursor.close();
 		
 		return vdays;
 		
@@ -521,6 +526,7 @@ public class DatabaseController implements DatabaseControllerInterface {
 	        } while (cursor.moveToNext());
 	    }
 		
+		cursor.close();
 		
 		return vdays;
 		
@@ -558,6 +564,8 @@ public class DatabaseController implements DatabaseControllerInterface {
 	        	db.delete(VACATION_DAYS_TABLE, KEY_ROWID+"=?", new String [] {String.valueOf(cursor.getInt(0))});
 	        } while (cursor.moveToNext());
 	    }
+		
+		cursor.close();
 		
 	}
 
