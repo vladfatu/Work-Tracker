@@ -19,12 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
-        <Chronometer
-            android:id="@+id/widgetChronometer"
+        <TextView
+            android:id="@+id/widgetTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:format="H:MM"
-            android:gravity="center" />
+            android:text="TextView" android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/punchInButton"

@@ -32,6 +32,7 @@ import com.android.tracker.jobs.JobsListActivity;
 import com.android.tracker.reports.ReportsActivity;
 import com.android.tracker.settings.SettingsActivity;
 import com.android.tracker.ui.records.RecordsActivity;
+import com.android.tracker.widget.TrackerWidgetProvider;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
@@ -307,6 +308,7 @@ public class WorkTrackerActivity extends Activity implements OnClickListener, On
 			{
 				record.setDate(c.getTime());
 				record.setType(Record.PUNCH_IN);
+				TrackerWidgetProvider.lastStartDate = c.getTime();
 				record.setDescription(descriptionEditText.getText().toString());
 				record.setJob(currentJob);
 				punchInButton.setText(R.string.punch_out);
