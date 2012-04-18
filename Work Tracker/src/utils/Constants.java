@@ -2,11 +2,15 @@ package utils;
 
 import java.text.SimpleDateFormat;
 
+import android.os.Environment;
+
 public class Constants {
 	
 	public static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 	public static SimpleDateFormat dateFormatterDMY = new SimpleDateFormat("dd.MM.yyyy");
 	public static SimpleDateFormat dateFormatterHHMM = new SimpleDateFormat("HH:mm");
+	
+	public static String CSV_PATH = Environment.getExternalStorageDirectory() + "/worktracker.csv";
 	
 	public static String JOB_ID_PREF = "com.android.tracker.JOB_ID_PREF";
 	public static String PUNCH_IN_PREF = "com.android.tracker.PUNCH_IN_PREF";

@@ -1,5 +1,8 @@
 package com.android.tracker.reports;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -8,7 +11,9 @@ import utils.Utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +28,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
+import au.com.bytecode.opencsv.CSVWriter;
 
 import com.android.tracker.R;
 import com.android.tracker.database.DatabaseController;
@@ -38,6 +44,8 @@ import com.google.ads.AdView;
  */
 public class ReportsActivity  extends Activity implements OnItemSelectedListener {
 	
+	private static final String TAG = "ReportsActivity";
+	
 	private Spinner typeSpinner;
 	private LinearLayout advancedLayout;
 	private DatabaseController dbController;
@@ -46,6 +54,7 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 	private Spinner jobSpinner;
 	private ArrayList<Job> jobs;
 	private TableLayout tl;
+	private CSVWriter csvWriter;
 	
 	AdView adView;
 	
@@ -80,6 +89,20 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 	
 	private void updateReport()
 	{
+		try
+		{
+			csvWriter = new CSVWriter(new FileWriter(Constants.CSV_PATH), ',');
+			String[] tempRow = new String[4];
+			tempRow[0] = getResources().getString(R.string.start_date);
+			tempRow[1] = getResources().getString(R.string.end_date);
+			tempRow[2] = getResources().getString(R.string.hours);
+			tempRow[3] = getResources().getString(R.string.income_reports);
+			csvWriter.writeNext(tempRow);
+		} catch (IOException e)
+		{
+			Log.d(TAG, "Error opening csv file: " + e.getMessage());
+			e.printStackTrace();
+		}
 		tl.removeAllViewsInLayout();
 		ArrayList<Entry> entries = Utils.getEntriesFromRecords(dbController.getAllRecords());
 		Calendar tempHours = Calendar.getInstance();
@@ -113,6 +136,17 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 								new TableLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 				
 				tempHours.clear();
+			}
+		}
+		if (csvWriter != null)
+		{
+			try
+			{
+				csvWriter.close();
+			} catch (IOException e)
+			{
+				Log.d(TAG, "Error closing csv file: " + e.getMessage());
+				e.printStackTrace();
 			}
 		}
 	}
@@ -152,6 +186,17 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 		incomeView.setGravity(Gravity.CENTER);
 		incomeView.setTextColor(Color.BLACK);
 		tr.addView(incomeView);
+		
+		//writing value in csv file
+		if (csvWriter != null)
+		{
+			String[] tempRow = new String[4];
+			tempRow[0] = startDate;
+			tempRow[1] = endDate;
+			tempRow[2] = hours;
+			tempRow[3] = Integer.toString(income);
+			csvWriter.writeNext(tempRow);
+		}
 		
 		return tr;
 	}
@@ -229,7 +274,10 @@ public class ReportsActivity  extends Activity implements OnItemSelectedListener
 	{
 		final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 
+		File file = new File(Constants.CSV_PATH);
+		
 		emailIntent.setType("plain/text");
+		emailIntent.putExtra(android.content.Intent.EXTRA_STREAM, Uri.parse("file://" + file));
 		// emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new
 		// String[]{ address.getText().toString()});
 		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Work Tracker");
